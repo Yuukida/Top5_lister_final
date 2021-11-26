@@ -8,16 +8,13 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import FunctionsOutlinedIcon from '@mui/icons-material/FunctionsOutlined';
-import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SortIcon from '@mui/icons-material/Sort';
-import { Fab } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
