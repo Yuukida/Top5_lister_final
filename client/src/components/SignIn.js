@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -17,6 +16,7 @@ import { GlobalStoreContext } from '../store'
 import { useContext } from 'react';
 import Copyright from './Copyright';
 import ErrorModal from './ErrorModal';
+import Container from '@mui/material/Container';
 
     
 export default function SignIn() {
@@ -36,41 +36,25 @@ export default function SignIn() {
     };
 
     return (
-    <ThemeProvider theme={theme}>
-        <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-        <Grid
-            item
-            xs={false}
-            sm={4}
-            md={7}
+        <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
             sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-                t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-            <Box
-            sx={{
-                my: 8,
-                mx: 4,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-            >
+          >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
+              <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-                Sign in
+              Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                <TextField
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <TextField
                 margin="normal"
                 required
                 fullWidth
@@ -79,8 +63,8 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                />
-                <TextField
+              />
+              <TextField
                 margin="normal"
                 required
                 fullWidth
@@ -89,29 +73,37 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                />
-                <Button
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                >
+              >
                 Sign In
-                </Button>
-                <Grid container>
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
                 <Grid item>
-                    <Link href="/register/" variant="body2">
+                  <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
-                    </Link>
+                  </Link>
                 </Grid>
-                </Grid>
-                <Copyright sx={{ mt: 5 }} />
+              </Grid>
             </Box>
-            </Box>
-        </Grid>
-        </Grid>
+          </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
         <ErrorModal />
-    </ThemeProvider>
+      </ThemeProvider>
     );
 }
     

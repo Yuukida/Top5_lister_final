@@ -6,6 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 import DeleteModal from './DeleteModal';
 import NavBar from './NavBar';
+import { IconButton } from '@mui/material';
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -40,16 +41,16 @@ const HomeScreen = () => {
         <div id="top5-list-selector">
             <NavBar />
             <div id="list-selector-heading">
-            <Fab 
-                color="primary" 
-                aria-label="add"
-                id="add-list-button"
+            <IconButton 
+                size="large"
+                color="inherit"
                 onClick={handleCreateNewList}
                 disabled={store.isListNameEditActive}
+                style={{ backgroundColor: 'transparent' }}
             >
-                <AddIcon />
-            </Fab>
-                <Typography variant="h2">Your Lists</Typography>
+                <AddIcon fontSize="large" />
+            </ IconButton>
+                <Typography variant="h3">Your Lists</Typography>
             </div>
             <div id="list-selector-list">
                 {
