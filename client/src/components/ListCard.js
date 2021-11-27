@@ -18,7 +18,7 @@ function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
-    const { idNamePair } = props;
+    const { attributes } = props;
 
     function handleLoadList(event, id) {
         if (!event.target.disabled && !store.isListNameEditActive) {
@@ -39,7 +39,7 @@ function ListCard(props) {
         let newActive = !editActive;
         if (newActive) {
             store.setIsListNameEditActive();
-            setText(idNamePair.name);
+            setText(attributes.name);
         }
         setEditActive(newActive);
     }
@@ -61,24 +61,23 @@ function ListCard(props) {
     function handleUpdateText(event) {
         setText(event.target.value);
     }
-
+    let bgcolor = '#d4d4f5';
     let cardElement =
         <ListItem
-            id={idNamePair._id}
-            key={idNamePair._id}
-            sx={{ marginTop: '15px', display: 'flex', p: 1 }}
+            id={attributes._id}
+            key={attributes._id}
+            sx={{ marginTop: '15px', display: 'flex', p: 1, backgroundColor: bgcolor}}
             button
             onClick={(event) => {
-                handleLoadList(event, idNamePair._id)
+                handleLoadList(event, attributes._id)
             }
             }
             style={{
                 fontSize: '48pt',
                 width: '100%',
             }}
-            
         >
-                <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
+                <Box sx={{ p: 1, flexGrow: 1 }}>{attributes.name}</Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={handleToggleEdit} aria-label='edit'>
                         <EditIcon style={{fontSize:'48pt'}} />
@@ -86,7 +85,7 @@ function ListCard(props) {
                 </Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={(event) => {
-                        handleDeleteList(event, idNamePair._id)
+                        handleDeleteList(event, attributes._id)
                     }} aria-label='delete'>
                         <DeleteIcon style={{fontSize:'48pt'}} />
                     </IconButton>
@@ -99,14 +98,14 @@ function ListCard(props) {
                 margin="normal"
                 required
                 fullWidth
-                id={"list-" + idNamePair._id}
+                id={"list-" + attributes._id}
                 label="Top 5 List Name"
                 name="name"
                 autoComplete="Top 5 List Name"
                 className='list-card'
                 onKeyPress={handleKeyPress}
                 onChange={handleUpdateText}
-                defaultValue={idNamePair.name}
+                defaultValue={attributes.name}
                 inputProps={{style: {fontSize: 48}}}
                 InputLabelProps={{style: {fontSize: 24}}}
                 autoFocus

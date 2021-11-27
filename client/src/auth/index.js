@@ -25,7 +25,6 @@ function AuthContextProvider(props) {
     });
     const history = useHistory();
 
-
     const authReducer = (action) => {
         const { type, payload } = action;
         switch (type) {
@@ -119,7 +118,7 @@ function AuthContextProvider(props) {
                     }
                 });
                 history.push("/home/");
-                store.loadIdNamePairs();
+                store.loadAllLists();
             }
         }catch (err){
             authReducer({
@@ -158,7 +157,7 @@ function AuthContextProvider(props) {
                     }
                 })
                 history.push("/");
-                store.loadIdNamePairs();
+                store.loadAllLists();
             }
         }catch (err){
             authReducer({

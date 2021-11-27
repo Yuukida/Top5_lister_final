@@ -22,7 +22,7 @@ const HomeScreen = () => {
         async function login() {
             const log = await auth.getLoggedIn();
             if(log){
-                store.loadIdNamePairs();
+                store.loadAllLists();
             }
         }
         login()
@@ -36,10 +36,10 @@ const HomeScreen = () => {
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {
-                store.idNamePairs.map((pair) => (
+                store.currentLists.map((pair) => (
                     <ListCard
                         key={pair._id}
-                        idNamePair={pair}
+                        attributes={pair}
                         selected={false}
                     />
                 ))
