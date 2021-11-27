@@ -60,7 +60,7 @@ loginUser = async (req, res) => {
                 user: {
                     firstName: id.firstName,
                     lastName: id.lastName,
-                    userId: user.userId,
+                    userId: id.userId,
                 }
             }).send();
         }else{
