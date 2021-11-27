@@ -25,6 +25,7 @@ export default function RegisterScreen() {
             firstName: formData.get('firstName'),
             lastName: formData.get('lastName'),
             email: formData.get('email'),
+            userId: formData.get('userId'),
             password: formData.get('password'),
             passwordVerify: formData.get('passwordVerify'),
             ownedLists: []
@@ -36,7 +37,7 @@ export default function RegisterScreen() {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 5,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -79,6 +80,16 @@ export default function RegisterScreen() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="userId"
+                                    label="User Name"
+                                    name="userId"
+                                    autoComplete="username"
                                 />
                             </Grid>
                             <Grid item xs={12}>
