@@ -7,6 +7,8 @@ import List from '@mui/material/List';
 import DeleteModal from './DeleteModal';
 import NavBar from './NavBar';
 import { IconButton } from '@mui/material';
+import AuthContext from '../auth';
+
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -14,9 +16,16 @@ import { IconButton } from '@mui/material';
 */
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
 
-    useEffect(() => {
-        store.loadIdNamePairs();
+    useEffect(() =>  {
+        async function login() {
+            const log = await auth.getLoggedIn();
+            if(log){
+                store.loadIdNamePairs();
+            }
+        }
+        login()
     }, []);
 
     function handleCreateNewList() {
@@ -25,7 +34,7 @@ const HomeScreen = () => {
     let listCard = "";
     if (store) {
         listCard = 
-            <List sx={{ width: '90%', left: '5%', bgcolor: 'background.paper' }}>
+            <List sx={{ width: '90%', left: '5%' }}>
             {
                 store.idNamePairs.map((pair) => (
                     <ListCard

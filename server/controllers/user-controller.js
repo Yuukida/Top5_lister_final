@@ -10,7 +10,7 @@ getLoggedIn = async (req, res) => {
             user: {
                 firstName: loggedInUser.firstName,
                 lastName: loggedInUser.lastName,
-                email: loggedInUser.email,
+                userId: loggedInUser.userId,
                 ownedLists: loggedInUser.ownedLists
             }
         })
@@ -40,8 +40,7 @@ loginUser = async (req, res) => {
                 user: {
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    email: user.email,
-                    ownedLists: user.ownedLists
+                    userId: user.userId,
                 }
             }).send();
         }else{
@@ -61,8 +60,7 @@ loginUser = async (req, res) => {
                 user: {
                     firstName: id.firstName,
                     lastName: id.lastName,
-                    email: id.email,
-                    ownedLists: id.ownedLists
+                    userId: user.userId,
                 }
             }).send();
         }else{

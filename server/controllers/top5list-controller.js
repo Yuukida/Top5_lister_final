@@ -53,6 +53,13 @@ updateTop5List = async (req, res) => {
 
         top5List.name = body.name
         top5List.items = body.items
+        top5List.comment = body.comments
+        top5List.like = body.like
+        top5List.dislike = body.dislike
+        top5List.likeUsers = body.likeUsers
+        top5List.dislikeUsers = body.dislikeUsers
+        top5List.views = body.views
+
         top5List
             .save()
             .then(() => {
@@ -127,11 +134,19 @@ getTop5ListPairs = async (req, res) => {
                 let pair = {
                     _id: list._id,
                     name: list.name,
-                    ownerEmail: list.ownerEmail
+                    ownerId: list.ownerId,
+                    likeUsers: list.likeUsers,
+                    like: list.like,
+                    dislike: list.dislike,
+                    dislikedUsers: list.dislikedUsers,
+                    comments: list.comments,
+                    views: list.views,
+                    published: list.published,
+                    creationDate: list.createdAt
                 };
                 pairs.push(pair);
             }
-            return res.status(200).json({ success: true, idNamePairs: pairs })
+            return res.status(200).json({ success: true, top5Lists: pairs })
         }
     }).catch(err => console.log(err))
 }

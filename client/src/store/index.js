@@ -170,8 +170,8 @@ function GlobalStoreContextProvider(props) {
                     async function getListPairs(top5List) {
                         response = await api.getTop5ListPairs();
                         if (response.data.success) {
-                            let pairsArray = response.data.idNamePairs;
-                            let ownedLists = pairsArray.filter(list => list.ownerEmail === auth.user.email);
+                            let pairsArray = response.data.top5Lists;
+                            let ownedLists = pairsArray.filter(list => list.ownerId === auth.user.userId);
                             storeReducer({
                                 type: GlobalStoreActionType.CHANGE_LIST_NAME,
                                 payload: {
@@ -204,7 +204,14 @@ function GlobalStoreContextProvider(props) {
         let payload = {
             name: newListName,
             items: ["?", "?", "?", "?", "?"],
-            ownerEmail: auth.user.email
+            ownerId: auth.user.userId,
+            like: 0,
+            likeUsers: [],
+            dislike: 0,
+            dislikedUsers: [],
+            views: 0,
+            published: false,
+            comments: []
         };
         const response = await api.createTop5List(payload);
         if (response.data.success) {
@@ -226,8 +233,8 @@ function GlobalStoreContextProvider(props) {
     store.loadIdNamePairs = async function () {
         const response = await api.getTop5ListPairs();
         if (response.data.success) {
-            let pairsArray = response.data.idNamePairs;
-            let ownedLists = pairsArray.filter(list => list.ownerEmail === auth.user.email);
+            let pairsArray = response.data.top5Lists;
+            let ownedLists = pairsArray.filter(list => list.ownerId === auth.user.userId);
             console.log(pairsArray)
             storeReducer({
                 type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
@@ -283,7 +290,7 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             let top5List = response.data.top5List;
 
-            if(auth.user !== null && top5List.ownerEmail === auth.user.email){
+            if(auth.user !== null && top5List.ownerId === auth.user.userId){
                 response = await api.updateTop5ListById(top5List._id, top5List);
                 if (response.data.success) {
                     storeReducer({
