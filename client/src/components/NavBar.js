@@ -15,6 +15,7 @@ import FunctionsOutlinedIcon from '@mui/icons-material/FunctionsOutlined';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SortIcon from '@mui/icons-material/Sort';
+import { TextField } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -122,52 +123,54 @@ export default function NavBar() {
         </Menu>
 
     return(
-        <Box sx={{ flexGrow: 1 }}> 
-            <Toolbar sx={{justifyContent: 'flex-start', display:"flex"}}>
+        <Box sx={{ display: "flex", width: "100%" }} > 
+            <Toolbar sx={{ display:"flex", width: "100%" }}>
                 <IconButton
                 size="large"
                 color="inherit"
-                style={{ backgroundColor: 'transparent' }}>
+                style={{ backgroundColor: 'transparent' }}
+                >
                     <HomeOutlinedIcon fontSize="large" onClick={handleHome}></HomeOutlinedIcon>
                 </IconButton>
+
                 <IconButton
                 size="large"
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}>
                     <GroupsOutlinedIcon fontSize="large"  onClick={handleGroup}></GroupsOutlinedIcon>
                 </IconButton>
+
                 <IconButton
                 size="large"
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}>
                     <PersonOutlineOutlinedIcon fontSize="large" onClick={handleAllLists}></PersonOutlineOutlinedIcon>
                 </IconButton>
+
                 <IconButton
                 size="large"
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}>
                     <FunctionsOutlinedIcon fontSize="large" onClick={handleCommunity}></FunctionsOutlinedIcon>
                 </IconButton>
-                <Search>
-                    <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ 'aria-label': 'search' }}
-                    />
-                </Search>
-                <Box sx={{display: 'flex',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    paddingLeft: 30}}>
-                    <Typography sx={{fontWeight: 'bold' ,fontSize:20}}>SORT BY</Typography>
-                    <IconButton
-                    size="large"
-                    color="inherit"
-                    style={{ backgroundColor: 'transparent' }}
-                    onClick={handleShowSortMenu}
-                    >
-                        <SortIcon fontSize="large" ></SortIcon>
-                    </IconButton>
-                </Box>
+
+                <InputBase
+                sx={{backgroundColor: "white", height:40, width:"40%"}}
+                placeholder="Search"
+                />
+                <Box sx={{width:"33%"}}></Box>
+                
+                <Typography sx={{fontWeight: 'bold', fontSize:20}}>SORT BY</Typography>
+                <IconButton
+                size="large"
+                color="inherit"
+                style={{ backgroundColor: 'transparent' }}
+                onClick={handleShowSortMenu}
+                
+                >
+                    <SortIcon fontSize="large" ></SortIcon>
+                </IconButton>
+                
             </Toolbar>
             {sortMenu}
         </Box>

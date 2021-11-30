@@ -4,9 +4,13 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-
+import Typography from '@mui/material/Typography';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Link from '@mui/material/Link';
+import AuthContext from '../auth';
 /*
     This is a card in our list of top 5 lists. It lets select
     a list for editing and it has controls for changing its 
@@ -16,8 +20,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
-    const [editActive, setEditActive] = useState(false);
-    const [text, setText] = useState("");
+    const { auth } = useContext(AuthContext);
+    const [expand, setExpand] = useState(false);
     const { attributes } = props;
 
     function handleLoadList(event, id) {
@@ -27,90 +31,108 @@ function ListCard(props) {
         }
     }
 
-    function handleToggleEdit(event) {
-        if(!store.isListNameEditActive){
-            event.stopPropagation();
-            toggleEdit();
-        }
-        
+    function handleEdit(event, id){
+
     }
 
-    function toggleEdit() {
-        let newActive = !editActive;
-        if (newActive) {
-            store.setIsListNameEditActive();
-            setText(attributes.name);
-        }
-        setEditActive(newActive);
+    function handleExpand(event, id) {
+
     }
 
-    async function handleDeleteList(event, id) {
-        if(!store.isListNameEditActive){
-            event.stopPropagation();
-            store.markListForDeletion(id);
-        }
+    function handleShrink(event, id) {
+
     }
 
-    function handleKeyPress(event) {
-        if (event.code === "Enter") {
-            let id = event.target.id.substring("list-".length);
-            store.changeListName(id, text);
-            toggleEdit();
-        }
+    function handleDeleteList(event, id) {
+
     }
-    function handleUpdateText(event) {
-        setText(event.target.value);
-    }
-    let bgcolor = '#d4d4f5';
+    
+    let bgcolor = attributes.ownerId === auth.user.userId ? "#fffff1" : "#d4d4f5";
+    let views = 'Views:\xa0\xa0\xa0' + attributes.views;
     let cardElement =
         <ListItem
             id={attributes._id}
             key={attributes._id}
-            sx={{ marginTop: '15px', display: 'flex', p: 1, backgroundColor: bgcolor}}
-            button
-            onClick={(event) => {
-                handleLoadList(event, attributes._id)
-            }
-            }
-            style={{
-                fontSize: '48pt',
-                width: '100%',
+            sx={{ 
+                marginTop: '15px', 
+                display: 'flex', 
+                p: 1, 
+                borderRadius: 2, 
+                borderColor:"black",
+                border: 2,
+                flexWrap: "wrap",
             }}
+            onClick={(event) => {handleLoadList(event, attributes._id)}}
+            button
+            style={{ backgroundColor: bgcolor }}
         >
-                <Box sx={{ p: 1, flexGrow: 1 }}>{attributes.name}</Box>
-                <Box sx={{ p: 1 }}>
-                    <IconButton onClick={handleToggleEdit} aria-label='edit'>
-                        <EditIcon style={{fontSize:'48pt'}} />
-                    </IconButton>
-                </Box>
-                <Box sx={{ p: 1 }}>
-                    <IconButton onClick={(event) => {
-                        handleDeleteList(event, attributes._id)
-                    }} aria-label='delete'>
-                        <DeleteIcon style={{fontSize:'48pt'}} />
-                    </IconButton>
-                </Box>
+                
+            
+            <Typography sx={{flexGrow:1, fontWeight:"bold"}}>{attributes.name} <br/>{"By:\xa0\xa0\xa0" + attributes.ownerId}</Typography>
+            
+            <IconButton
+            color="inherit"
+            style={{
+                position:"relative",
+                right: 40,
+                bottom:5
+            }}
+            >
+                <ThumbUpOutlinedIcon fontSize="large"></ThumbUpOutlinedIcon>
+            </IconButton>
+            <Typography 
+            sx={{fontWeight: "bold", fontSize: 15}} 
+            style={{
+                position:"relative",
+                right: 40,
+                bottom:5
+            }}>{attributes.dislike}</Typography>
+            <IconButton
+            color="inherit"
+            style={{
+                position:"relative",
+                right: 30,
+                bottom:5
+            }}>
+                <ThumbDownOutlinedIcon fontSize="large"></ThumbDownOutlinedIcon>
+            </IconButton>
+            <Typography 
+            sx={{fontWeight: "bold", fontSize: 15}}
+            style={{
+                position:"relative",
+                right: 30,
+                bottom:5
+            }}>{attributes.dislike}</Typography>
+            <IconButton
+            color="inherit"
+            style={{
+                position:"relative",
+                left: 10,
+                bottom:5
+            }}
+            onclick={(event) => {handleDeleteList(event, attributes._id)}}
+            >
+                <DeleteOutlinedIcon fontSize="large"></DeleteOutlinedIcon>
+            </IconButton>
+            
+            <Box sx={{width: "100%"}}></Box>
+
+            
+            <Link sx={{flex:1, color: "red"}}>{"Edit"}</Link>         
+            
+                           
+            <Typography  sx={{flex:0.135, fontWeight:"bold"}}>{views}</Typography>
+
+            <IconButton color="inherit" splashSize="2" 
+            style={{
+                height: 5
+            }}>
+                <ExpandMoreIcon fontSize="large" ></ExpandMoreIcon>
+            </IconButton>    
+
+                
         </ListItem>
 
-    if (editActive) {
-        cardElement =
-            <TextField
-                margin="normal"
-                required
-                fullWidth
-                id={"list-" + attributes._id}
-                label="Top 5 List Name"
-                name="name"
-                autoComplete="Top 5 List Name"
-                className='list-card'
-                onKeyPress={handleKeyPress}
-                onChange={handleUpdateText}
-                defaultValue={attributes.name}
-                inputProps={{style: {fontSize: 48}}}
-                InputLabelProps={{style: {fontSize: 24}}}
-                autoFocus
-            />
-    }
     return (
         cardElement
     );
