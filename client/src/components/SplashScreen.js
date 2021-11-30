@@ -18,7 +18,7 @@ export default function SplashScreen() {
             </Box>
             <Box sx={{p: 5}}>
                 <Typography align="center" variant="h1" sx={{ color: "#d5b240"}}>The Top 5 Lister</Typography>
-
+                <Typography align="center" sx={{color: "#841acb", }}>Developed by: Haoran Weng</Typography>
             </Box>
             <Box sx={{m:-3}}>
                 <Typography align="center" sx={{fontSize:20, color: "#841acb", fontWeight: 'bold' }}>A website that let's you create, share, and <br/> view you and your friends favorites, from <br/> music to video games</Typography>
@@ -28,9 +28,7 @@ export default function SplashScreen() {
                 <Button variant="text" sx={{ fontSize:20}} component={Link} to="/login/">Login</Button> <br/>
                 <Button variant="text" sx={{ fontSize:20}} onClick={handleGuest}>Continue as Guest</Button>
             </Box>
-            <Box sx={{p:2}}>
-                <Typography align="right" sx={{color: "#841acb"}}>Developed by: Haoran Weng</Typography>
-            </Box>
+            
         </div>
     )
 }
