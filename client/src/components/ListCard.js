@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
@@ -11,6 +10,8 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Link from '@mui/material/Link';
 import AuthContext from '../auth';
+import ExpandedListCard from './ExpandedListCard';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 /*
     This is a card in our list of top 5 lists. It lets select
     a list for editing and it has controls for changing its 
@@ -35,17 +36,47 @@ function ListCard(props) {
 
     }
 
-    function handleExpand(event, id) {
-
+    function handleExpand(event) {
+        event.stopPropagation();
+        setExpand(true);
     }
 
-    function handleShrink(event, id) {
-
+    function handleShrink(event) {
+        event.stopPropagation();
+        setExpand(false);
     }
 
     function handleDeleteList(event, id) {
 
     }
+    
+    let expandedList = "";
+    if(expand){
+        expandedList = <ExpandedListCard attributes={props.attributes} />
+    }
+
+    let expandIcon = "";
+
+    if(expand){
+        expandIcon = 
+        <IconButton color="inherit" 
+            style={{
+                height: 5
+            }}
+            onClick={handleShrink}>
+                <ExpandLessIcon fontSize="large" ></ExpandLessIcon>
+            </IconButton>
+    }else{
+        expandIcon = 
+        <IconButton color="inherit" 
+        style={{
+            height: 5
+        }}
+        onClick={handleExpand}>
+            <ExpandMoreIcon fontSize="large" ></ExpandMoreIcon>
+        </IconButton>
+    }
+
     
     let bgcolor = attributes.ownerId === auth.user.userId ? "#fffff1" : "#d4d4f5";
     let views = 'Views:\xa0\xa0\xa0' + attributes.views;
@@ -64,11 +95,11 @@ function ListCard(props) {
             }}
             onClick={(event) => {handleLoadList(event, attributes._id)}}
             button
-            style={{ backgroundColor: bgcolor }}
+            style={{ backgroundColor: "#d4d4f5" }}
         >
                 
             
-            <Typography sx={{flexGrow:1, fontWeight:"bold"}}>{attributes.name} <br/>{"By:\xa0\xa0\xa0" + attributes.ownerId}</Typography>
+            <Typography sx={{flexGrow:1, fontWeight:"bold", fontSize: 20,}}>{attributes.name} <br/>{"By:\xa0\xa0\xa0" + attributes.ownerId}</Typography>
             
             <IconButton
             color="inherit"
@@ -110,25 +141,22 @@ function ListCard(props) {
                 left: 10,
                 bottom:5
             }}
-            onclick={(event) => {handleDeleteList(event, attributes._id)}}
+            onClick={(event) => {handleDeleteList(event, attributes._id)}}
             >
                 <DeleteOutlinedIcon fontSize="large"></DeleteOutlinedIcon>
             </IconButton>
             
             <Box sx={{width: "100%"}}></Box>
+            {expandedList}
+            <Box sx={{width: "100%"}}></Box>
 
-            
+
             <Link sx={{flex:1, color: "red"}}>{"Edit"}</Link>         
             
                            
             <Typography  sx={{flex:0.135, fontWeight:"bold"}}>{views}</Typography>
 
-            <IconButton color="inherit" splashSize="2" 
-            style={{
-                height: 5
-            }}>
-                <ExpandMoreIcon fontSize="large" ></ExpandMoreIcon>
-            </IconButton>    
+            {expandIcon}
 
                 
         </ListItem>

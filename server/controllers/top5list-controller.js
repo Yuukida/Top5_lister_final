@@ -142,7 +142,8 @@ getTop5ListPairs = async (req, res) => {
                     comments: list.comments,
                     views: list.views,
                     published: list.published,
-                    creationDate: list.createdAt
+                    creationDate: list.createdAt,
+                    items: list.items
                 };
                 pairs.push(pair);
             }
