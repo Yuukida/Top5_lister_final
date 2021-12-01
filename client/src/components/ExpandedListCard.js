@@ -1,15 +1,6 @@
-import { useContext, useState } from 'react'
-import { GlobalStoreContext } from '../store'
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
-import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Link from '@mui/material/Link';
 import { Grid } from '@mui/material';
 import List from '@mui/material/List';
 import InputBase from '@mui/material/InputBase';

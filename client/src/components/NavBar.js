@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom'
 import AuthContext from '../auth';
 import { GlobalStoreContext } from '../store'
 import Toolbar from '@mui/material/Toolbar';
@@ -15,7 +14,6 @@ import FunctionsOutlinedIcon from '@mui/icons-material/FunctionsOutlined';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SortIcon from '@mui/icons-material/Sort';
-import { TextField } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -121,14 +119,20 @@ export default function NavBar() {
             <MenuItem onClick={handleSortLikes}>Likes</MenuItem>
             <MenuItem onClick={handleSortDislikes}>Dislikes</MenuItem>
         </Menu>
-
+    let navbarDisable = false;
+    let opacity = 1;
+    if(store.currentList){
+        navbarDisable = true;
+        opacity = "38%"
+    }
     return(
         <Box sx={{ display: "flex", width: "100%" }} > 
-            <Toolbar sx={{ display:"flex", width: "100%" }}>
+            <Toolbar sx={{ display:"flex", width: "100%" }} >
                 <IconButton
                 size="large"
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}
+                disabled={navbarDisable}
                 >
                     <HomeOutlinedIcon fontSize="large" onClick={handleHome}></HomeOutlinedIcon>
                 </IconButton>
@@ -136,37 +140,41 @@ export default function NavBar() {
                 <IconButton
                 size="large"
                 color="inherit"
-                style={{ backgroundColor: 'transparent' }}>
+                style={{ backgroundColor: 'transparent' }}
+                disabled={navbarDisable}>
                     <GroupsOutlinedIcon fontSize="large"  onClick={handleGroup}></GroupsOutlinedIcon>
                 </IconButton>
 
                 <IconButton
                 size="large"
                 color="inherit"
-                style={{ backgroundColor: 'transparent' }}>
+                style={{ backgroundColor: 'transparent' }}
+                disabled={navbarDisable}>
                     <PersonOutlineOutlinedIcon fontSize="large" onClick={handleAllLists}></PersonOutlineOutlinedIcon>
                 </IconButton>
 
                 <IconButton
                 size="large"
                 color="inherit"
-                style={{ backgroundColor: 'transparent' }}>
+                style={{ backgroundColor: 'transparent' }}
+                disabled={navbarDisable}>
                     <FunctionsOutlinedIcon fontSize="large" onClick={handleCommunity}></FunctionsOutlinedIcon>
                 </IconButton>
 
                 <InputBase
                 sx={{backgroundColor: "white", height:40, width:"40%"}}
                 placeholder="Search"
+                disabled={navbarDisable}
                 />
-                <Box sx={{width:"33%"}}></Box>
+                <Box sx={{width:"32%"}}></Box>
                 
-                <Typography sx={{fontWeight: 'bold', fontSize:20}}>SORT BY</Typography>
+                <Typography sx={{fontWeight: 'bold', fontSize:20, opacity: opacity}}>SORT BY</Typography>
                 <IconButton
                 size="large"
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}
                 onClick={handleShowSortMenu}
-                
+                disabled={navbarDisable}
                 >
                     <SortIcon fontSize="large" ></SortIcon>
                 </IconButton>

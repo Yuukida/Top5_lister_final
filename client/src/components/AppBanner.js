@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom'
 import AuthContext from '../auth';
-import { GlobalStoreContext } from '../store'
-import EditToolbar from './EditToolbar'
+import { GlobalStoreContext } from '../store';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -82,7 +81,7 @@ export default function AppBanner() {
             const user = auth.user;
             const name = user.firstName.charAt(0) + user.lastName.charAt(0);
             return (<IconButton
-                size="large"
+                size="medium"
                 edge="end"
                 aria-label="account of current user"
                 aria-controls={menuId}
@@ -95,7 +94,7 @@ export default function AppBanner() {
         }else{
             return (
                 <IconButton 
-                    size="large"
+                    size="medium"
                     edge="end"
                     aria-label="account of current user"
                     aria-controls={menuId}

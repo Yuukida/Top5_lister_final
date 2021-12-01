@@ -9,12 +9,7 @@ import NavBar from './NavBar';
 import { IconButton } from '@mui/material';
 import AuthContext from '../auth';
 
-/*
-    This React component lists all the top5 lists in the UI.
-    
-    @author McKilla Gorilla
-*/
-const HomeScreen = () => {
+function HomeScreen() {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
 

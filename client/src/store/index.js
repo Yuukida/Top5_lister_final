@@ -195,7 +195,7 @@ function GlobalStoreContextProvider(props) {
             payload: {}
         });
         
-        history.push("/");
+        history.push("/home/");
     }
 
     // THIS FUNCTION CREATES A NEW LIST
@@ -297,7 +297,7 @@ function GlobalStoreContextProvider(props) {
                         type: GlobalStoreActionType.SET_CURRENT_LIST,
                         payload: top5List
                     });
-                    history.push("/top5list/" + top5List._id);
+                    history.push("/home/" + top5List._id);
                 }
             }
         }
@@ -323,7 +323,7 @@ function GlobalStoreContextProvider(props) {
         let status = await auth.getLoggedIn();
         if(status){
             let listId = history.location.pathname
-            listId = listId.substring("/top5list/".length);
+            listId = listId.substring("/home/".length);
             store.setCurrentList(listId);
         }
     }

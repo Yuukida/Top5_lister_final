@@ -12,13 +12,7 @@ import Link from '@mui/material/Link';
 import AuthContext from '../auth';
 import ExpandedListCard from './ExpandedListCard';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-/*
-    This is a card in our list of top 5 lists. It lets select
-    a list for editing and it has controls for changing its 
-    name or deleting it.
-    
-    @author McKilla Gorilla
-*/
+
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
@@ -33,7 +27,7 @@ function ListCard(props) {
     }
 
     function handleEdit(event, id){
-
+        store.setCurrentList(id);
     }
 
     function handleExpand(event) {
@@ -78,7 +72,10 @@ function ListCard(props) {
     }
 
     
-    let bgcolor = attributes.ownerId === auth.user.userId ? "#fffff1" : "#d4d4f5";
+    let bgcolor = "";
+    if(auth.user){
+        bgcolor = attributes.ownerId === auth.user.userId ? "#fffff1" : "#d4d4f5";
+    }
     let views = 'Views:\xa0\xa0\xa0' + attributes.views;
     let cardElement =
         <ListItem
@@ -93,9 +90,7 @@ function ListCard(props) {
                 border: 2,
                 flexWrap: "wrap",
             }}
-            onClick={(event) => {handleLoadList(event, attributes._id)}}
-            button
-            style={{ backgroundColor: "#d4d4f5" }}
+            style={{ backgroundColor: bgcolor }}
         >
                 
             
@@ -151,7 +146,7 @@ function ListCard(props) {
             <Box sx={{width: "100%"}}></Box>
 
 
-            <Link sx={{flex:1, color: "red"}}>{"Edit"}</Link>         
+            <Typography onClick={(event) => {handleEdit(event, attributes._id)}} sx={{flex:1, color: "red", cursor: "pointer", textDecoration: 'underline'}}>{"Edit"}</Typography>         
             
                            
             <Typography  sx={{flex:0.135, fontWeight:"bold"}}>{views}</Typography>
