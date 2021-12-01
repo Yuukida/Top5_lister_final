@@ -8,7 +8,6 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Link from '@mui/material/Link';
 import AuthContext from '../auth';
 import ExpandedListCard from './ExpandedListCard';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';

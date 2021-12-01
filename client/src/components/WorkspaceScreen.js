@@ -7,7 +7,6 @@ import NavBar from './NavBar';
 import AddIcon from '@mui/icons-material/Add';
 import { IconButton } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
-import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
 import AuthContext from '../auth';
 

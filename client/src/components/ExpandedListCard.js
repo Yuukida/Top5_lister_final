@@ -4,8 +4,6 @@ import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import List from '@mui/material/List';
 import InputBase from '@mui/material/InputBase';
-import { Paper } from '@mui/material';
-
 
 
 function ExpandedListCard(props) {
