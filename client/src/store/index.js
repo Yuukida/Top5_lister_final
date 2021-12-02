@@ -264,7 +264,7 @@ function GlobalStoreContextProvider(props) {
         let response = await api.deleteTop5ListById(listToDelete._id);
         if (response.data.success) {
             store.loadHomeLists();
-            history.push("/");
+            history.push("/home/");
         }
     }
 
@@ -319,22 +319,6 @@ function GlobalStoreContextProvider(props) {
         let listId = history.location.pathname
         return listId.substring("/home/".length);
         
-    }
-
-    // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
-    store.setIsListNameEditActive = function () {
-        storeReducer({
-            type: GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE,
-            payload: null
-        });
-    }
-
-    // THIS FUNCTION ENABLES THE PROCESS OF EDITING AN ITEM
-    store.setIsItemEditActive = function () {
-        storeReducer({
-            type: GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE,
-            payload: null
-        });
     }
 
     return (

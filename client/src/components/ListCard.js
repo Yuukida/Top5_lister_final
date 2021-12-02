@@ -33,7 +33,7 @@ function ListCard(props) {
     }
 
     function handleDeleteList(event, id) {
-
+        store.markListForDeletion(id)
     }
     
     let expandedList = "";
