@@ -17,7 +17,7 @@ function HomeScreen() {
         async function login() {
             const log = await auth.getLoggedIn();
             if(log){
-                store.loadAllLists();
+                store.loadHomeLists();
             }else{
                 store.welcomePage();
             }
