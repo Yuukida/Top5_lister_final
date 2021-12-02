@@ -34,24 +34,29 @@ function ExpandedListCard(props) {
             </ListItem>
     )
 
+    let comment = "";
+    if(attributes.published){
+        comment = 
+        <InputBase
+                        sx={{backgroundColor: "white", height:40, width:"95%", borderRadius: 2}}
+                        placeholder="Comment"
+                        onClick={handleFocusComment}
+                    />
+    }
     return(
         <Grid container sx={{display:"flex", justifyContent: "center"}}>
             <Box sx={{backgroundColor: "#2c2f70", width: "48%", borderRadius:2 , m:1}}>
                 {itemList}
             </Box>
 
-            <Box sx={{width: "48%", m:1}}>
-                <Box style={{maxHeight: 200, overflowY: 'auto'}} >
+            <Box sx={{width: "48%", m:1, display:"flex", flexDirection: "column"}}>
+                <Box style={{maxHeight: 200, overflowY: 'auto', flex:1}} >
                     <List >
                         {commentList}
                     </List>
                     
                 </Box>
-                <InputBase
-                        sx={{backgroundColor: "white", height:40, width:"95%", borderRadius: 2}}
-                        placeholder="Comment"
-                        onClick={handleFocusComment}
-                    />
+                {comment}
             </Box>
             
             

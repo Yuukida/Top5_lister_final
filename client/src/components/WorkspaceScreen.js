@@ -14,29 +14,23 @@ import { TextField } from '@mui/material';
 function WorkspaceScreen() {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
-    const [flag, setFlag] = useState(false);
-    useEffect(async () => {
+    const [items, setItems] = useState(store?.currentList?.items);
+    const [name, setName] = useState(store?.currentList?.name)
+    useEffect(() => {
         console.log("effect")
        
-        // let log = await auth.getLoggedIn();
-        // if(log){
-        //     let id = store.getListId();
-        //     await store.setCurrentList(id)
-        // }else{
-        //     store.welcomePage()
-        // } 
-        handleListNameChange() 
-
-    }, []);
-
-    const [publish, setPublish] = useState(!store?.currentList?.published);
-    const handleSaveList = (event) => {
-        store.closeCurrentList();
-    }
-
-    const handleListNameChange = (event) => {
+        // async function loadItems() {
+        //     let log = await auth.getLoggedIn();
+        //     if(log){
+        //         let id = store.getListId();
+        //         await store.setCurrentList(id)
+        //     }else{
+        //         store.welcomePage()
+        //     } 
+        // }
+        // loadItems()
         let sameLists = store.currentLists.filter((list) => {
-            return (list.name === store?.currentList?.name) && list.published
+            return (list.name === name) && list.published
         }
         );
         if(sameLists.length === 0){
@@ -48,6 +42,30 @@ function WorkspaceScreen() {
         }else{
             setPublish(true);
         }
+
+    }, [name]);
+
+    const [publish, setPublish] = useState(!store?.currentList?.published);
+
+    const handleSaveList = (event, id) => {
+        store.saveList(id, name, items);
+    }
+
+    const handlePublishList = (event, id) => {
+        store.publishList(id, name, items);
+    }
+
+    const handleItemChange = (event, index) => {
+        items[index] = event.target.value
+        setItems(items)
+    }
+
+    const handleListNameChange = (event) => {
+        if(event){
+            setName(event.target.value)
+        }
+        
+        
     }
     
     let editItems = "";
@@ -55,6 +73,7 @@ function WorkspaceScreen() {
     if (store.currentList) {
         editItems = 
             <Box
+            key={"items"}
             sx={{backgroundColor: "#2c2f70", width: "97%",  borderRadius: 2, height: "79%", display: "flex", flexDirection:"column"}}
             >
                 {
@@ -71,13 +90,15 @@ function WorkspaceScreen() {
                                     textAlign: 'center',
                                 }
                             }}
-                            key={"item" + index}
                             readOnly
                         />
                         <InputBase
                         sx={{m:1, backgroundColor: "#d5b240", border:1, borderRadius:2, width: '90%', flex:1}}
                         defaultValue={item}
                         inputProps={{ style: { fontSize: 40, marginLeft: 10} }}
+                        id={"item" + index}
+                        name={"item" + index}
+                        onChange={(event) => handleItemChange(event, index)}
                         />
                         </Box>
                     ))
@@ -85,7 +106,7 @@ function WorkspaceScreen() {
                 }
                 </Box>;
     }
-    
+
     let listName = store?.currentList?.name;
     return (
         <div id="top5-workspace">
@@ -119,7 +140,6 @@ function WorkspaceScreen() {
                     border: 1,
                     justifyContent: "center",
                 }}
-                
                 >
                     
                     <Grid 
@@ -131,6 +151,8 @@ function WorkspaceScreen() {
                         defaultValue={listName}
                         sx={{ m:1, backgroundColor: "white", width: "50%", fontWeight: "bold", fontSize:18}}
                         onChange={handleListNameChange}
+                        id="name"
+                        name="name"
                     />
                     </Grid>
                     {editItems}
@@ -150,7 +172,7 @@ function WorkspaceScreen() {
                         height:"8%",
                         width: "10%",
                      }}
-                     onClick={handleSaveList}
+                     onClick={(event) => handleSaveList(event, store.currentList._id)}
                     >
                         {"SAVE"}
                     </Button>
@@ -166,7 +188,9 @@ function WorkspaceScreen() {
                         height:"8%",
                         width: "10%",
                      }}
-                     disabled={publish}
+                     
+                    disabled={publish}
+                    onClick={(event) => handlePublishList(event, store.currentList._id)}
                     >
                         {"PUBLISH"}
                     </Button>

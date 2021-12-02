@@ -18,13 +18,6 @@ function ListCard(props) {
     const [expand, setExpand] = useState(false);
     const { attributes } = props;
 
-    function handleLoadList(event, id) {
-        if (!event.target.disabled && !store.isListNameEditActive) {
-            // CHANGE THE CURRENT LIST
-            store.setCurrentList(id);
-        }
-    }
-
     function handleEdit(event, id){
         store.setCurrentList(id);
     }
@@ -70,10 +63,40 @@ function ListCard(props) {
         </IconButton>
     }
 
-    
+    let editOrPublish = 
+            <>
+            <Typography 
+            onClick={(event) => {handleEdit(event, attributes._id)}} 
+            sx={{ 
+                color: "red", cursor: "pointer", 
+                textDecoration: 'underline'
+            }}
+            >{"Edit"}</Typography>
+            <Box sx={{flex: 1}}></Box>
+            </>
+    if(attributes.published){
+        let date = new Date(attributes.publishDate)
+        const month = date.toLocaleString('default', { month: 'short' });
+        let day = date.getDate();
+        let year = date.getFullYear();
+        date = month + " " + day + ", " + year;
+        
+        editOrPublish = 
+            <>
+            <Typography sx={{fontWeight: "bold"}}>
+                {"Published:\xa0\xa0\xa0"}
+            </Typography>
+            <Typography sx={{flex:0.94, color: "green", fontWeight: "bold"}}>
+                {date}
+            </Typography>
+            </>
+    }
+
+
     let bgcolor = "";
     if(auth.user){
         bgcolor = attributes.ownerId === auth.user.userId ? "#fffff1" : "#d4d4f5";
+        bgcolor = attributes.published ? "#d4d4f5" : "#fffff1";
     }
     let views = 'Views:\xa0\xa0\xa0' + attributes.views;
     let cardElement =
@@ -145,8 +168,8 @@ function ListCard(props) {
             <Box sx={{width: "100%"}}></Box>
 
 
-            <Typography onClick={(event) => {handleEdit(event, attributes._id)}} sx={{ color: "red", cursor: "pointer", textDecoration: 'underline'}}>{"Edit"}</Typography>         
-            <Box sx={{flex: 1}}></Box>
+            {editOrPublish}         
+            
 
             <Typography  sx={{flex:0.135, fontWeight:"bold"}}>{views}</Typography>
 
