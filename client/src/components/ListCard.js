@@ -145,9 +145,9 @@ function ListCard(props) {
             <Box sx={{width: "100%"}}></Box>
 
 
-            <Typography onClick={(event) => {handleEdit(event, attributes._id)}} sx={{flex:1, color: "red", cursor: "pointer", textDecoration: 'underline'}}>{"Edit"}</Typography>         
-            
-                           
+            <Typography onClick={(event) => {handleEdit(event, attributes._id)}} sx={{ color: "red", cursor: "pointer", textDecoration: 'underline'}}>{"Edit"}</Typography>         
+            <Box sx={{flex: 1}}></Box>
+
             <Typography  sx={{flex:0.135, fontWeight:"bold"}}>{views}</Typography>
 
             {expandIcon}
