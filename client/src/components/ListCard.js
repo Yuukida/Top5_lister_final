@@ -11,6 +11,8 @@ import AuthContext from '../auth';
 import ExpandedListCard from './ExpandedListCard';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
@@ -36,6 +38,14 @@ function ListCard(props) {
         store.markListForDeletion(id)
     }
     
+    function handleLikeList(event, id) {
+        store.likeList(id)
+    }
+
+    function handleDislikeList(event, id) {
+        store.dislikeList(id)
+    }
+
     let expandedList = "";
     if(expand){
         expandedList = <ExpandedListCard attributes={props.attributes} />
@@ -74,6 +84,9 @@ function ListCard(props) {
             >{"Edit"}</Typography>
             <Box sx={{flex: 1}}></Box>
             </>
+
+    let likeDislike = ""
+    
     if(attributes.published){
         let date = new Date(attributes.publishDate)
         const month = date.toLocaleString('default', { month: 'short' });
@@ -90,6 +103,45 @@ function ListCard(props) {
                 {date}
             </Typography>
             </>
+        
+        likeDislike = 
+        <>
+            <IconButton
+            color="inherit"
+            style={{
+                position:"relative",
+                right: 40,
+                bottom:5
+            }}
+            onClick={(event) => handleLikeList(event, attributes._id)}
+            >
+                {attributes.likedUsers.includes(auth.user.userId) ? <ThumbUpAltIcon fontSize="large"></ThumbUpAltIcon> :<ThumbUpOutlinedIcon fontSize="large"></ThumbUpOutlinedIcon>}
+            </IconButton>
+            <Typography 
+            sx={{fontWeight: "bold", fontSize: 15}} 
+            style={{
+                position:"relative",
+                right: 40,
+                bottom:5
+            }}>{attributes.likes}</Typography>
+            <IconButton
+            color="inherit"
+            style={{
+                position:"relative",
+                right: 30,
+                bottom:5
+            }}
+            onClick={(event) => handleDislikeList(event, attributes._id)}>
+                {attributes.dislikedUsers.includes(auth.user.userId) ? <ThumbDownAltIcon fontSize="large"></ThumbDownAltIcon> : <ThumbDownOutlinedIcon fontSize="large"></ThumbDownOutlinedIcon>}
+            </IconButton>
+            <Typography 
+            sx={{fontWeight: "bold", fontSize: 15}}
+            style={{
+                position:"relative",
+                right: 30,
+                bottom:5
+            }}>{attributes.dislikes}</Typography>
+        </>
     }
 
 
@@ -118,39 +170,7 @@ function ListCard(props) {
             
             <Typography sx={{flexGrow:1, fontWeight:"bold", fontSize: 20,}}>{attributes.name} <br/>{"By:\xa0\xa0\xa0" + attributes.ownerId}</Typography>
             
-            <IconButton
-            color="inherit"
-            style={{
-                position:"relative",
-                right: 40,
-                bottom:5
-            }}
-            >
-                <ThumbUpOutlinedIcon fontSize="large"></ThumbUpOutlinedIcon>
-            </IconButton>
-            <Typography 
-            sx={{fontWeight: "bold", fontSize: 15}} 
-            style={{
-                position:"relative",
-                right: 40,
-                bottom:5
-            }}>{attributes.dislike}</Typography>
-            <IconButton
-            color="inherit"
-            style={{
-                position:"relative",
-                right: 30,
-                bottom:5
-            }}>
-                <ThumbDownOutlinedIcon fontSize="large"></ThumbDownOutlinedIcon>
-            </IconButton>
-            <Typography 
-            sx={{fontWeight: "bold", fontSize: 15}}
-            style={{
-                position:"relative",
-                right: 30,
-                bottom:5
-            }}>{attributes.dislike}</Typography>
+            {likeDislike}
             <IconButton
             color="inherit"
             style={{
@@ -171,7 +191,7 @@ function ListCard(props) {
             {editOrPublish}         
             
 
-            <Typography  sx={{flex:0.135, fontWeight:"bold"}}>{views}</Typography>
+            {attributes.published? <Typography  sx={{flex:0.135, fontWeight:"bold"}}>{views}</Typography>: ""}
 
             {expandIcon}
 

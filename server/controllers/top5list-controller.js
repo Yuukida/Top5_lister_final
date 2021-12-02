@@ -54,10 +54,10 @@ updateTop5List = async (req, res) => {
         top5List.name = body.name
         top5List.items = body.items
         top5List.comment = body.comments
-        top5List.like = body.like
-        top5List.dislike = body.dislike
-        top5List.likeUsers = body.likeUsers
-        top5List.dislikeUsers = body.dislikeUsers
+        top5List.likes = body.likes
+        top5List.dislikes = body.dislikes
+        top5List.likedUsers = body.likedUsers
+        top5List.dislikedUsers = body.dislikedUsers
         top5List.views = body.views
         top5List.published = body.published
         top5List.publishDate = body.publishDate
@@ -137,9 +137,9 @@ getTop5ListPairs = async (req, res) => {
                     _id: list._id,
                     name: list.name,
                     ownerId: list.ownerId,
-                    likeUsers: list.likeUsers,
-                    like: list.like,
-                    dislike: list.dislike,
+                    likedUsers: list.likedUsers,
+                    likes: list.likes,
+                    dislikes: list.dislikes,
                     dislikedUsers: list.dislikedUsers,
                     comments: list.comments,
                     views: list.views,

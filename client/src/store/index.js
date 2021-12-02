@@ -22,6 +22,7 @@ export const GlobalStoreActionType = {
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
+    LIKE_DISLIKE_LIST: "LIKE_DISLIKE_LIST"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -109,7 +110,14 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null
                 });
             }
-            
+            case GlobalStoreActionType.LIKE_DISLIKE_LIST: {
+                return setStore({
+                    currentLists: store.currentLists,
+                    currentList: null,
+                    newListCounter: store.newListCounter,
+                    listMarkedForDeletion: null
+                })
+            }
             default:
                 return store;
         }
@@ -202,9 +210,9 @@ function GlobalStoreContextProvider(props) {
             name: newListName,
             items: ["?", "?", "?", "?", "?"],
             ownerId: auth.user.userId,
-            like: 0,
-            likeUsers: [],
-            dislike: 0,
+            likes: 0,
+            likedUsers: [],
+            dislikes: 0,
             dislikedUsers: [],
             views: 0,
             published: false,
@@ -278,7 +286,94 @@ function GlobalStoreContextProvider(props) {
             payload: null
         });
     }
+    store.likeList = async function (id) {
+        let response = await api.getTop5ListById(id);
+        if (response.data.success) {
+            let top5List = response.data.top5List;
 
+            let user = auth.user.userId;
+            let likeArray = top5List.likedUsers
+            let likes = top5List.likes
+            let dislikeArray = top5List.dislikedUsers
+            let dislikes = top5List.dislikes
+            if(likeArray.includes(user)){
+                likeArray.pop(user)
+                likes--;
+            }else if(dislikeArray.includes(user)){
+                likeArray.push(user);
+                likes++;
+                dislikeArray.pop(user)
+                dislikes--;
+            }else{
+                likeArray.push(user);
+                likes++;
+            }
+            top5List.likedUsers = likeArray;
+            top5List.likes = likes;
+            top5List.dislikes = dislikes;
+            top5List.dislikedUsers = dislikeArray
+            async function updateList(top5List) {
+                response = await api.updateTop5ListById(top5List._id, top5List);
+                if (response.data.success) {
+                    const list = store.currentLists.find(list => list._id === id)
+                    list.likedUsers = likeArray;
+                    list.likes = likes;
+                    list.dislikes = dislikes;
+                    list.dislikedUsers = dislikeArray;
+                    storeReducer({
+                        type: GlobalStoreActionType.LIKE_DISLIKE_LIST,
+                        payload: {}
+                    })
+                }
+            }
+            updateList(top5List);
+        }
+    }
+
+    store.dislikeList = async function (id) {
+        let response = await api.getTop5ListById(id);
+        if (response.data.success) {
+            let top5List = response.data.top5List;
+
+            let user = auth.user.userId;
+            let likeArray = top5List.likedUsers
+            let likes = top5List.likes
+            let dislikeArray = top5List.dislikedUsers
+            let dislikes = top5List.dislikes
+            if(dislikeArray.includes(user)){
+                dislikeArray.pop(user)
+                dislikes--;
+            }else if(likeArray.includes(user)){
+                dislikeArray.push(user);
+                dislikes++;
+                likeArray.pop(user)
+                likes--;
+            }else{
+                dislikeArray.push(user);
+                dislikes++;
+            }
+            top5List.likedUsers = likeArray;
+            top5List.likes = likes;
+            top5List.dislikes = dislikes;
+            top5List.dislikedUsers = dislikeArray
+            async function updateList(top5List) {
+                response = await api.updateTop5ListById(top5List._id, top5List);
+                if (response.data.success) {
+                    const list = store.currentLists.find(list => list._id === id)
+                    list.likedUsers = likeArray;
+                    list.likes = likes;
+                    list.dislikes = dislikes;
+                    list.dislikedUsers = dislikeArray;
+                    storeReducer({
+                        type: GlobalStoreActionType.LIKE_DISLIKE_LIST,
+                        payload: {}
+                    })
+                    console.log(store.currentLists)
+                }
+            }
+            updateList(top5List);
+        }
+    }
     // THE FOLLOWING 8 FUNCTIONS ARE FOR COORDINATING THE UPDATING
     // OF A LIST, WHICH INCLUDES DEALING WITH THE TRANSACTION STACK. THE
     // FUNCTIONS ARE setCurrentList, addMoveItemTransaction, addUpdateItemTransaction,
