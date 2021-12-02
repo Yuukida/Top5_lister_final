@@ -7,10 +7,10 @@ import Typography from '@mui/material/Typography';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AuthContext from '../auth';
 import ExpandedListCard from './ExpandedListCard';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
@@ -50,7 +50,7 @@ function ListCard(props) {
                 height: 5
             }}
             onClick={handleShrink}>
-                <ExpandLessIcon fontSize="large" ></ExpandLessIcon>
+                <KeyboardDoubleArrowUpIcon fontSize="large" ></KeyboardDoubleArrowUpIcon>
             </IconButton>
     }else{
         expandIcon = 
@@ -59,7 +59,7 @@ function ListCard(props) {
             height: 5
         }}
         onClick={handleExpand}>
-            <ExpandMoreIcon fontSize="large" ></ExpandMoreIcon>
+            <KeyboardDoubleArrowDownIcon fontSize="large" ></KeyboardDoubleArrowDownIcon>
         </IconButton>
     }
 
