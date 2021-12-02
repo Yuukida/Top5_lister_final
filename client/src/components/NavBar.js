@@ -133,32 +133,36 @@ export default function NavBar() {
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}
                 disabled={navbarDisable}
+                onClick={handleHome}
                 >
-                    <HomeOutlinedIcon fontSize="large" onClick={handleHome}></HomeOutlinedIcon>
+                    <HomeOutlinedIcon fontSize="large" ></HomeOutlinedIcon>
                 </IconButton>
 
                 <IconButton
                 size="large"
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}
-                disabled={navbarDisable}>
-                    <GroupsOutlinedIcon fontSize="large"  onClick={handleGroup}></GroupsOutlinedIcon>
+                disabled={navbarDisable}
+                onClick={handleGroup}>
+                    <GroupsOutlinedIcon fontSize="large"  ></GroupsOutlinedIcon>
                 </IconButton>
 
                 <IconButton
                 size="large"
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}
-                disabled={navbarDisable}>
-                    <PersonOutlineOutlinedIcon fontSize="large" onClick={handleAllLists}></PersonOutlineOutlinedIcon>
+                disabled={navbarDisable}
+                onClick={handleAllLists}>
+                    <PersonOutlineOutlinedIcon fontSize="large" ></PersonOutlineOutlinedIcon>
                 </IconButton>
 
                 <IconButton
                 size="large"
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}
-                disabled={navbarDisable}>
-                    <FunctionsOutlinedIcon fontSize="large" onClick={handleCommunity}></FunctionsOutlinedIcon>
+                disabled={navbarDisable}
+                onClick={handleCommunity}>
+                    <FunctionsOutlinedIcon fontSize="large" ></FunctionsOutlinedIcon>
                 </IconButton>
 
                 <InputBase
