@@ -18,6 +18,8 @@ function HomeScreen() {
             const log = await auth.getLoggedIn();
             if(log){
                 store.loadAllLists();
+            }else{
+                store.welcomePage();
             }
         }
         login()

@@ -197,6 +197,10 @@ function GlobalStoreContextProvider(props) {
         history.push("/home/");
     }
 
+    store.welcomePage = function () {
+        history.push("/");
+    }
+
     // THIS FUNCTION CREATES A NEW LIST
     store.createNewList = async function () {
         let newListName = "Untitled" + store.newListCounter;
@@ -221,7 +225,7 @@ function GlobalStoreContextProvider(props) {
             });
 
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
-            history.push("/top5list/" + newList._id);
+            history.push("/home/" + newList._id);
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
@@ -318,13 +322,10 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.load = async function (){
-        let status = await auth.getLoggedIn();
-        if(status){
-            let listId = history.location.pathname
-            listId = listId.substring("/home/".length);
-            store.setCurrentList(listId);
-        }
+    store.getListId = function (){
+        let listId = history.location.pathname
+        return listId.substring("/home/".length);
+        
     }
 
     // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
