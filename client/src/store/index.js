@@ -18,7 +18,8 @@ export const GlobalStoreActionType = {
     LIKE_DISLIKE_LIST: "LIKE_DISLIKE_LIST",
     CHANGE_PAGE: "CHANGE_PAGE",
     SORT_LISTS: "SORT_LISTS",
-    SEARCH_LISTS: "SEARCH_LISTS"
+    SEARCH_LISTS: "SEARCH_LISTS",
+    RESET_COUNT: "RESET_COUNT"
 }
 
 export const GlobalStorePageType = {
@@ -177,6 +178,17 @@ function GlobalStoreContextProvider(props) {
                     searched: payload.searched
                 })
             }
+            case GlobalStoreActionType.RESET_COUNT: {
+                return setStore({
+                    currentLists: store.currentLists,
+                    currentList: null,
+                    newListCounter: 0,
+                    listMarkedForDeletion: null,
+                    pageType: store.pageType,
+                    sortType: store.sortType,
+                    searched: store.searched
+                })
+            }
             default:
                 return store;
         }
@@ -185,7 +197,12 @@ function GlobalStoreContextProvider(props) {
     // THESE ARE THE FUNCTIONS THAT WILL UPDATE OUR STORE AND
     // DRIVE THE STATE OF THE APPLICATION. WE'LL CALL THESE IN 
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
-
+    store.loginReset = function () {
+        storeReducer({
+            type: GlobalStoreActionType.RESET_COUNT,
+            payload: {}
+        })
+    }
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
     store.saveList = async function (id, newName, newItems) {
         let response = await api.getTop5ListById(id);

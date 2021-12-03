@@ -108,8 +108,8 @@ function AuthContextProvider(props) {
                         user: response.data.user,
                     }
                 });
+                store.loginReset();
                 history.push("/home/");
-                store.loadHomeLists();
             }
         }catch (err){
             authReducer({
@@ -126,14 +126,14 @@ function AuthContextProvider(props) {
         });
     }
 
-    auth.logoutUser = async function() {
+    auth.logoutUser = async function(store) {
         await api.logoutUser();
         authReducer({
             type: AuthActionType.LOGOUT_USER,
             payload: {
-
             }
         })
+        store.loginReset();
         history.push("/");
     }
 
@@ -147,8 +147,8 @@ function AuthContextProvider(props) {
                         user: response.data.user
                     }
                 })
+                store.loginReset();
                 history.push("/home/");
-                store.loadHomeLists();
             }
         }catch (err){
             authReducer({
