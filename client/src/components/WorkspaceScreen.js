@@ -9,7 +9,6 @@ import { IconButton } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 import { Button } from '@mui/material';
 import AuthContext from '../auth';
-import { TextField } from '@mui/material';
 
 function WorkspaceScreen() {
     const { store } = useContext(GlobalStoreContext);
@@ -82,7 +81,7 @@ function WorkspaceScreen() {
                         <Box sx={{width: "100%", display: "flex", flex:1}}>
                         <InputBase
                             value={index+1 + ". "}
-                            sx={{m:1, backgroundColor: "#d5b240", border:1, borderRadius:2, width: 80,  fontSize: 40, }}
+                            sx={{m:1, backgroundColor: "#d5b240", border:1, borderRadius:2, width: 80,  fontSize: 35, }}
                             
                             inputProps={{
                                 style: {
@@ -95,7 +94,7 @@ function WorkspaceScreen() {
                         <InputBase
                         sx={{m:1, backgroundColor: "#d5b240", border:1, borderRadius:2, width: '90%', flex:1}}
                         defaultValue={item}
-                        inputProps={{ style: { fontSize: 40, marginLeft: 10} }}
+                        inputProps={{ style: { fontSize: 35, marginLeft: 10} }}
                         id={"item" + index}
                         name={"item" + index}
                         onChange={(event) => handleItemChange(event, index)}

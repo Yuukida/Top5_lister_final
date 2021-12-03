@@ -115,7 +115,7 @@ function ListCard(props) {
             }}
             onClick={(event) => handleLikeList(event, attributes._id)}
             >
-                {attributes.likedUsers.includes(auth.user.userId) ? <ThumbUpAltIcon fontSize="large"></ThumbUpAltIcon> :<ThumbUpOutlinedIcon fontSize="large"></ThumbUpOutlinedIcon>}
+                {attributes.likedUsers.includes(auth.user?.userId) ? <ThumbUpAltIcon fontSize="large"></ThumbUpAltIcon> :<ThumbUpOutlinedIcon fontSize="large"></ThumbUpOutlinedIcon>}
             </IconButton>
             <Typography 
             sx={{fontWeight: "bold", fontSize: 15}} 
@@ -132,7 +132,7 @@ function ListCard(props) {
                 bottom:5
             }}
             onClick={(event) => handleDislikeList(event, attributes._id)}>
-                {attributes.dislikedUsers.includes(auth.user.userId) ? <ThumbDownAltIcon fontSize="large"></ThumbDownAltIcon> : <ThumbDownOutlinedIcon fontSize="large"></ThumbDownOutlinedIcon>}
+                {attributes.dislikedUsers.includes(auth.user?.userId) ? <ThumbDownAltIcon fontSize="large"></ThumbDownAltIcon> : <ThumbDownOutlinedIcon fontSize="large"></ThumbDownOutlinedIcon>}
             </IconButton>
             <Typography 
             sx={{fontWeight: "bold", fontSize: 15}}

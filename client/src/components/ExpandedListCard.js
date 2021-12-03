@@ -4,21 +4,35 @@ import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import List from '@mui/material/List';
 import InputBase from '@mui/material/InputBase';
+import { useState, useContext } from 'react';
+import { GlobalStoreContext } from '../store/index.js'
+
 
 
 function ExpandedListCard(props) {
 
     const {attributes} = props;
+    const [comment, setComment] = useState("")
+    const { store } = useContext(GlobalStoreContext);
 
-    const handleFocusComment = (event) => {
-        event.stopPropagation();
+    const handleCommentChange = (event) => {
+        setComment(event.target.value)
     }
-    
+
+    const handleCommentKeyPress = (event, id) => {
+        if(event.code === "Enter"){
+            store.postComment(id, comment)
+            event.target.value = ""
+            setComment("")
+        }
+    }
+
     let itemList = attributes.items.map( (item, index) => 
             <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 25, m:1,}}>{index+1+". " + item}</Typography>
     )
-    let commentList = attributes.comments.map( (comment) => 
+    let commentList = attributes.comments.map( (comment, index) => 
             <ListItem 
+            key={index}
             sx={{
                 backgroundColor: "#c7a53a", 
                 borderRadius:1, 
@@ -27,20 +41,22 @@ function ExpandedListCard(props) {
                 display: "flex", 
                 flexDirection: "column", 
                 width: "95%",
-                alignItems: "flex-start"
+                alignItems: "flex-start",
+                
             }}>
                 <Typography sx={{fontSize:15, color: "blue"}}>{comment[0]}</Typography>
                 <Typography sx={{fontSize:20,}}>{comment[1]}</Typography>
             </ListItem>
     )
 
-    let comment = "";
+    let comments = "";
     if(attributes.published){
-        comment = 
+        comments = 
         <InputBase
                         sx={{backgroundColor: "white", height:40, width:"95%", borderRadius: 2}}
                         placeholder="Comment"
-                        onClick={handleFocusComment}
+                        onChange={handleCommentChange}
+                        onKeyPress={(event) => handleCommentKeyPress(event, attributes._id)}
                     />
     }
     return(
@@ -56,7 +72,7 @@ function ExpandedListCard(props) {
                     </List>
                     
                 </Box>
-                {comment}
+                {comments}
             </Box>
             
             
