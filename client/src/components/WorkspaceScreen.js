@@ -18,16 +18,9 @@ function WorkspaceScreen() {
     useEffect(() => {
         console.log("effect")
        
-        // async function loadItems() {
-        //     let log = await auth.getLoggedIn();
-        //     if(log){
-        //         let id = store.getListId();
-        //         await store.setCurrentList(id)
-        //     }else{
-        //         store.welcomePage()
-        //     } 
-        // }
-        // loadItems()
+        if(store.currentList === null){
+            store.goToHome()
+        }
         let sameLists = store.currentLists.filter((list) => {
             return (list.name === name) && list.published
         }
