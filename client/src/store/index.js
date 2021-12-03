@@ -19,15 +19,12 @@ export const GlobalStoreActionType = {
     SAVE_PUBLISH_LIST: "SAVE_PUBLISH_LIST",
     CLOSE_CURRENT_LIST: "CLOSE_CURRENT_LIST",
     CREATE_NEW_LIST: "CREATE_NEW_LIST",
-    LOAD_ID_NAME_PAIRS: "LOAD_ID_NAME_PAIRS",
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
     LIKE_DISLIKE_LIST: "LIKE_DISLIKE_LIST",
-    HOME_PAGE: "HOME",
-    COMMUNITY_PAGE: "COMMUNITY",
-    USERS_PAGE: "USERS",
-    ALL_LISTS_PAGE: "ALLLISTS",
+    CHANGE_PAGE: "CHANGE_PAGE",
+    SORT_LISTS: "SORT_LISTS"
 }
 
 export const GlobalStorePageType = {
@@ -35,6 +32,14 @@ export const GlobalStorePageType = {
     COMMUNITY: "COMMUNITY",
     USERS: "USERS",
     ALLLISTS: "ALLLISTS"
+}
+
+export const GlobalStoreSortType = {
+    NEWEST: "NEWEST",
+    OLDEST: "OLDEST",
+    VIEWS: "VIEWS",
+    LIKE: "LIKE",
+    DISLIKE: "DISLIKE"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -48,7 +53,9 @@ function GlobalStoreContextProvider(props) {
         currentList: null,
         newListCounter: 0,
         listMarkedForDeletion: null,
-        pageType: null
+        pageType: null,
+        sortType: null,
+        searched: ""
     });
     const history = useHistory();
 
@@ -67,7 +74,9 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
-                    pageType: store.pageType
+                    pageType: store.pageType,
+                    sortType: store.sortType,
+                    searched: store.searched
                 });
             }
             // STOP EDITING THE CURRENT LIST
@@ -77,7 +86,9 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
-                    pageType: store.pageType
+                    pageType: store.pageType,
+                    sortType: store.sortType,
+                    searched: store.searched
                 })
             }
             // CREATE A NEW LIST
@@ -87,18 +98,10 @@ function GlobalStoreContextProvider(props) {
                     currentList: payload,
                     newListCounter: store.newListCounter + 1,
                     listMarkedForDeletion: null,
-                    pageType: store.pageType
+                    pageType: store.pageType,
+                    sortType: store.sortType,
+                    searched: store.searched
                 })
-            }
-            // GET ALL THE LISTS SO WE CAN PRESENT THEM
-            case GlobalStoreActionType.LOAD_ID_NAME_PAIRS: {
-                return setStore({
-                    currentLists: payload,
-                    currentList: null,
-                    newListCounter: store.newListCounter,
-                    listMarkedForDeletion: null,
-                    pageType: store.pageType
-                });
             }
             // PREPARE TO DELETE A LIST
             case GlobalStoreActionType.MARK_LIST_FOR_DELETION: {
@@ -107,7 +110,9 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: payload,
-                    pageType: store.pageType
+                    pageType: store.pageType,
+                    sortType: store.sortType,
+                    searched: store.searched
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -117,7 +122,9 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
-                    pageType: store.pageType
+                    pageType: store.pageType,
+                    sortType: store.sortType,
+                    searched: store.searched
                 });
             }
             // UPDATE A LIST
@@ -127,7 +134,9 @@ function GlobalStoreContextProvider(props) {
                     currentList: payload,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
-                    pageType: store.pageType
+                    pageType: store.pageType,
+                    sortType: store.sortType,
+                    searched: store.searched
                 });
             }
             case GlobalStoreActionType.LIKE_DISLIKE_LIST: {
@@ -136,43 +145,31 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
-                    pageType: store.pageType
+                    pageType: store.pageType,
+                    sortType: store.sortType,
+                    searched: store.searched
                 })
             }
-            case GlobalStoreActionType.HOME_PAGE: {
+            case GlobalStoreActionType.CHANGE_PAGE: {
                 return setStore({
-                    currentLists: payload,
+                    currentLists: payload.currentLists,
                     currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
-                    pageType: GlobalStorePageType.HOME
+                    pageType: payload.pageType,
+                    sortType: null,
+                    searched: ""
                 })
             }
-            case GlobalStoreActionType.COMMUNITY_PAGE: {
+            case GlobalStoreActionType.SORT_LISTS: {
                 return setStore({
-                    currentLists: payload,
+                    currentLists: payload.currentLists,
                     currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
-                    pageType: GlobalStorePageType.COMMUNITY
-                })
-            }
-            case GlobalStoreActionType.USERS_PAGE: {
-                return setStore({
-                    currentLists: payload,
-                    currentList: null,
-                    newListCounter: store.newListCounter,
-                    listMarkedForDeletion: null,
-                    pageType: GlobalStorePageType.USERS
-                })
-            }
-            case GlobalStoreActionType.ALL_LISTS_PAGE: {
-                return setStore({
-                    currentLists: payload,
-                    currentList: null,
-                    newListCounter: store.newListCounter,
-                    listMarkedForDeletion: null,
-                    pageType: GlobalStorePageType.ALLLISTS
+                    pageType: store.pageType,
+                    sortType: payload.sortType,
+                    searched: store.searched
                 })
             }
             default:
@@ -299,8 +296,11 @@ function GlobalStoreContextProvider(props) {
             let pairsArray = response.data.top5Lists;
             let ownedLists = pairsArray.filter(list => list.ownerId === auth.user.userId);
             storeReducer({
-                type: GlobalStoreActionType.HOME_PAGE,
-                payload: ownedLists
+                type: GlobalStoreActionType.CHANGE_PAGE,
+                payload: {
+                    currentLists: ownedLists,
+                    pageType: GlobalStorePageType.HOME,
+                }
             });
         }
     }
@@ -310,7 +310,7 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             let top5Lists = response.data.top5Lists;
             let publishedLists = top5Lists.filter(list => list.published === true);
-            let defaultCommunity = publishedLists.sort((first, second) => {
+            publishedLists.sort((first, second) => {
                 if(first.updatedDate > second.updatedDate){
                     return -1;
                 }else if(first.updatedDate < second.updatedDate){
@@ -320,8 +320,11 @@ function GlobalStoreContextProvider(props) {
                 }
             })
             storeReducer({
-                type: GlobalStoreActionType.COMMUNITY_PAGE,
-                payload: defaultCommunity
+                type: GlobalStoreActionType.CHANGE_PAGE,
+                payload: {
+                    currentLists: publishedLists,
+                    pageType: GlobalStorePageType.COMMUNITY,
+                }
             });
         }
     }
@@ -333,8 +336,11 @@ function GlobalStoreContextProvider(props) {
             let publishedLists = top5Lists.filter(list => list.published === true);
             
             storeReducer({
-                type: GlobalStoreActionType.ALL_LISTS_PAGE,
-                payload: publishedLists
+                type: GlobalStoreActionType.CHANGE_PAGE,
+                payload: {
+                    currentLists: publishedLists,
+                    pageType: GlobalStorePageType.ALLLISTS,
+                }
             });
         }
     }
@@ -504,7 +510,6 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-
     store.updateItem = function (index, newItem) {
         store.currentList.items[index] = newItem;
         store.updateCurrentList();
@@ -526,20 +531,105 @@ function GlobalStoreContextProvider(props) {
         
     }
 
-    store.sortNewest = async function () {
-
+    store.sortNewest = function () {
+        let publishedLists = store.currentLists.filter(list => list.published === true)
+        let unpublishedLists = store.currentLists.filter(list => list.published === false)
+        publishedLists.sort((first, second) => {
+            if(first.publishDate > second.publishDate){
+                return -1
+            }else if(first.publishDate < second.publishDate){
+                return 1;
+            }else{
+                return 0
+            }
+        })
+        let lists = publishedLists.concat(unpublishedLists)
+        storeReducer({
+            type: GlobalStoreActionType.SORT_LISTS,
+            payload: {
+                currentLists: lists,
+                sortType: GlobalStoreSortType.NEWEST
+            }
+        })
     }
-    store.sortOldest = async function () {
-
+    store.sortOldest = function () {
+        let publishedLists = store.currentLists.filter(list => list.published === true)
+        let unpublishedLists = store.currentLists.filter(list => list.published === false)
+        publishedLists.sort((first, second) => {
+            if(first.publishDate > second.publishDate){
+                return 1
+            }else if(first.publishDate < second.publishDate){
+                return -1;
+            }else{
+                return 0
+            }
+        })
+        let lists = publishedLists.concat(unpublishedLists)
+        storeReducer({
+            type: GlobalStoreActionType.SORT_LISTS,
+            payload: {
+                currentLists: lists,
+                sortType: GlobalStoreSortType.NEWEST
+            }
+        })
     }
-    store.sortViews = async function() {
-
+    store.sortViews = function() {
+        let lists = store.currentLists
+        lists.sort((first, second) => {
+            if(first.views > second.views){
+                return -1
+            }else if(first.views < second.views){
+                return 1;
+            }else{
+                return 0
+            }
+        })
+        storeReducer({
+            type: GlobalStoreActionType.SORT_LISTS,
+            payload: {
+                currentLists: lists,
+                sortType: GlobalStoreSortType.NEWEST
+            }
+        })
     }
-    store.sortLikes = async function(){
-
+    store.sortLikes = function(){
+        let lists = store.currentLists
+        lists.sort((first, second) => {
+            if(first.likes > second.likes){
+                return -1
+            }else if(first.likes < second.likes){
+                return 1;
+            }else{
+                return 0
+            }
+        })
+        storeReducer({
+            type: GlobalStoreActionType.SORT_LISTS,
+            payload: {
+                currentLists: lists,
+                sortType: GlobalStoreSortType.NEWEST
+            }
+        })
     }
-    store.sortDislikes = async function(){
-
+    store.sortDislikes = function(){
+        let lists = store.currentLists
+        lists.sort((first, second) => {
+            console.log(first.dislikes)
+            if(first.dislikes > second.dislikes){
+                return -1
+            }else if(first.dislikes < second.dislikes){
+                return 1;
+            }else{
+                return 0
+            }
+        })
+        storeReducer({
+            type: GlobalStoreActionType.SORT_LISTS,
+            payload: {
+                currentLists: lists,
+                sortType: GlobalStoreSortType.NEWEST
+            }
+        })
     }
 
     store.goToAllLists = async function() {
@@ -553,9 +643,12 @@ function GlobalStoreContextProvider(props) {
     }
     store.goToUser = async function() {
         storeReducer({
-            type: GlobalStoreActionType.USERS_PAGE,
-            payload: []
-        })
+            type: GlobalStoreActionType.CHANGE_PAGE,
+            payload: {
+                currentLists: [],
+                pageType: GlobalStorePageType.USERS,
+            }
+        });
         history.push("/users/")
     }
     
