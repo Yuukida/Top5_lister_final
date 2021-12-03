@@ -170,7 +170,7 @@ export default function NavBar() {
                 placeholder="Search"
                 disabled={navbarDisable}
                 />
-                <Box sx={{width:"32%"}}></Box>
+                <Box sx={{flex:1}}></Box>
                 
                 <Typography sx={{fontWeight: 'bold', fontSize:20, opacity: opacity}}>SORT BY</Typography>
                 <IconButton
