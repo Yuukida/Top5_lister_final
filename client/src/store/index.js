@@ -254,7 +254,25 @@ function GlobalStoreContextProvider(props) {
             updateList(top5List);
         }
     }
-
+    store.handleViews = async function (id) {
+        let response = await api.getTop5ListById(id);
+        if (response.data.success) {
+            let top5List = response.data.top5List;
+            top5List.views++;
+            async function updateList(top5List) {
+                response = await api.updateTop5ListById(top5List._id, top5List);
+                if (response.data.success) {
+                    const list = store.currentLists.find(list => list._id === id)
+                    list.views++;
+                    storeReducer({
+                        type: GlobalStoreActionType.LIKE_DISLIKE_LIST,
+                        payload: {}
+                    })
+                }
+            }
+            updateList(top5List);
+        }
+    }
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentList = function () {
         storeReducer({

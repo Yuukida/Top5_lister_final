@@ -24,8 +24,11 @@ function ListCard(props) {
         store.setCurrentList(id);
     }
 
-    function handleExpand(event) {
+    function handleExpand(event, id) {
         event.stopPropagation();
+        if(store.pageType !== "HOME"){
+            store.handleViews(id)
+        }
         setExpand(true);
     }
 
@@ -68,7 +71,7 @@ function ListCard(props) {
         style={{
             height: 5
         }}
-        onClick={handleExpand}>
+        onClick={(event) => handleExpand(event, attributes._id)}>
             <KeyboardDoubleArrowDownIcon fontSize="large" ></KeyboardDoubleArrowDownIcon>
         </IconButton>
     }
