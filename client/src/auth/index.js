@@ -156,7 +156,7 @@ function AuthContextProvider(props) {
                         user: response.data.user
                     }
                 })
-                history.push("/");
+                history.push("/home/");
                 store.loadHomeLists();
             }
         }catch (err){
