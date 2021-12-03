@@ -11,7 +11,6 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import FunctionsOutlinedIcon from '@mui/icons-material/FunctionsOutlined';
-import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SortIcon from '@mui/icons-material/Sort';
 
@@ -77,20 +76,16 @@ export default function NavBar() {
 
     const handleSearchKeyPress = (event) => {
         if(event.code === "Enter"){
-            if(store.pageType === "COMMUNITY"){
-                store.searchLists(search)
+            if(store.pageType === "HOME"){
+                store.searchStartWithHome(search)
                 event.target.value = "";
                 setSearch("")
             }else if (store.pageType === "USERS"){
                 store.searchUsers(search)
                 event.target.value = "";
                 setSearch("")
-            }else if (store.pageType === "ALLLISTS"){
+            }else {
                 store.searchStartWith(search)
-                event.target.value = "";
-                setSearch("")
-            }else{
-                store.searchStartWithHome(search)
                 event.target.value = "";
                 setSearch("")
             }

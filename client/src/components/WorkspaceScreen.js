@@ -15,11 +15,14 @@ function WorkspaceScreen() {
     const { auth } = useContext(AuthContext);
     const [items, setItems] = useState(store?.currentList?.items);
     const [name, setName] = useState(store?.currentList?.name)
-    useEffect(() => {
-        console.log("effect")
-       
-        if(store.currentList === null){
-            store.goToHome()
+    useEffect(async () => {
+        if(!auth.loggedIn && !auth.isGuest){
+            const log = await auth.getLoggedIn()
+            if(log){
+                store.goToHome()
+            }else{
+                store.welcomePage()
+            }
         }
         let sameLists = store.currentLists.filter((list) => {
             return (list.name === name) && list.published
@@ -61,7 +64,7 @@ function WorkspaceScreen() {
     }
     
     let editItems = "";
-    
+
     if (store.currentList) {
         editItems = 
             <Box
@@ -99,7 +102,6 @@ function WorkspaceScreen() {
                 </Box>;
     }
 
-    let listName = store?.currentList?.name;
     return (
         <div id="top5-workspace">
             <NavBar />
@@ -140,7 +142,7 @@ function WorkspaceScreen() {
                         }}
                     >
                     <InputBase
-                        defaultValue={listName}
+                        defaultValue={store?.currentList?.name}
                         sx={{ m:1, backgroundColor: "white", width: "50%", fontWeight: "bold", fontSize:18}}
                         onChange={handleListNameChange}
                         id="name"

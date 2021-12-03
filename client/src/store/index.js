@@ -2,12 +2,6 @@ import { createContext, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import api from '../api'
 import AuthContext from '../auth'
-/*
-    This is our global data store. Note that it uses the Flux design pattern,
-    which makes use of things like actions and reducers. 
-    
-    @author McKilla Gorilla
-*/
 
 // THIS IS THE CONTEXT WE'LL USE TO SHARE OUR STORE
 export const GlobalStoreContext = createContext({});
@@ -565,7 +559,6 @@ function GlobalStoreContextProvider(props) {
     store.getListId = function (){
         let listId = history.location.pathname
         return listId.substring("/home/".length);
-        
     }
 
     store.sortNewest = function () {
@@ -720,15 +713,27 @@ function GlobalStoreContextProvider(props) {
             let top5Lists = response.data.top5Lists;
             let publishedLists = top5Lists.filter(list => list.published === true);
             let searchedLists = publishedLists.filter(list => list.name.toLowerCase().startsWith(search.toLowerCase()))
-            searchedLists.sort((first, second) => {
-                if(first.creationDate > second.creationDate){
-                    return -1;
-                }else if(first.creationDate < second.creationDate){
-                    return 1
-                }else{
-                    return 0
-                }
-            })
+            if(store.paheType === "COMMUNITY"){
+                searchedLists.sort((first, second) => {
+                    if(first.updatedDate > second.updatedDate){
+                        return -1;
+                    }else if(first.updatedDate < second.updatedDate){
+                        return 1
+                    }else{
+                        return 0
+                    }
+                })
+            }else{
+                searchedLists.sort((first, second) => {
+                    if(first.creationDate > second.creationDate){
+                        return -1;
+                    }else if(first.creationDate < second.creationDate){
+                        return 1
+                    }else{
+                        return 0
+                    }
+                })
+            }
             storeReducer({
                 type: GlobalStoreActionType.SEARCH_LISTS,
                 payload:{
