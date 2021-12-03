@@ -14,7 +14,7 @@ function CommunityScreen() {
     useEffect(() =>  {
         async function login() {
             const log = await auth.getLoggedIn();
-            if(log){
+            if(log || auth.isGuest){
                 store.loadCommunityLists();
             }else{
                 store.welcomePage();
@@ -42,7 +42,7 @@ function CommunityScreen() {
         <div id="top5-list-selector">
             <NavBar />
             <div id="list-selector-heading">
-                <Typography variant="h3">{"Community Lists"}</Typography>
+                <Typography variant="h4">{"Community Lists"}</Typography>
             </div>
             <div id="list-selector-list">
                 {

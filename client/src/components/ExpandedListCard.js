@@ -6,13 +6,14 @@ import List from '@mui/material/List';
 import InputBase from '@mui/material/InputBase';
 import { useState, useContext } from 'react';
 import { GlobalStoreContext } from '../store/index.js'
-
+import AuthContext from '../auth/index.js';
 
 
 function ExpandedListCard(props) {
     const {attributes} = props;
     const [comment, setComment] = useState("")
     const { store } = useContext(GlobalStoreContext);
+    const {auth} = useContext(AuthContext)
 
     const handleCommentChange = (event) => {
         setComment(event.target.value)
@@ -57,6 +58,9 @@ function ExpandedListCard(props) {
                         onChange={handleCommentChange}
                         onKeyPress={(event) => handleCommentKeyPress(event, attributes._id)}
                     />
+    }
+    if(auth.isGuest){
+        comments = ""
     }
     return(
         <Grid container sx={{display:"flex", justifyContent: "center"}}>

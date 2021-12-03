@@ -30,6 +30,21 @@ export default function AppBanner() {
         auth.logoutUser();
     }
 
+    const handleGuest = () => {
+        handleMenuClose();
+        auth.signInGuest();
+    }
+    let link = "/"
+    if(auth.loggedIn){
+        link = "/home/"
+    }else if(auth.isGuest){
+        link = "/community/"
+    }
+    let guest = ""
+    if(!auth.isGuest){
+        guest = 
+        <MenuItem onClick={handleGuest}><Link to='/community/'>Continue as Guest</Link></MenuItem>
+    }
     const menuId = 'primary-search-account-menu';
     const loggedOutMenu = (
         <Menu
@@ -49,6 +64,7 @@ export default function AppBanner() {
         >
             <MenuItem onClick={handleMenuClose}><Link to='/login/'>Login</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
+            {guest}
         </Menu>
     );
     const loggedInMenu = 
@@ -120,7 +136,7 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link style={{ textDecoration: 'none', color: '#d5b240', fontSize:45 }} to='/'>T<sup>5</sup>L</Link>
+                        <Link style={{ textDecoration: 'none', color: '#d5b240', fontSize:45 }} to={link}>T<sup>5</sup>L</Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

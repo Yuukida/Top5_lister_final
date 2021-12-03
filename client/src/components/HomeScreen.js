@@ -56,7 +56,7 @@ function HomeScreen() {
             >
                 <AddIcon fontSize="large" />
             </ IconButton>
-                <Typography variant="h3">Your Lists</Typography>
+                <Typography variant="h4">Your Lists</Typography>
             </div>
             <div id="list-selector-list">
                 {

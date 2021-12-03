@@ -11,7 +11,6 @@ export const AuthActionType = {
     REGISTER_USER: "REGISTER_USER",
     LOGIN_USER: "LOGIN_USER",
     LOGOUT_USER: "LOGOUT_USER",
-    UPDATE_USER_LISTS: "UPDATE_USER_LISTS",
     ACCOUNT_ERROR: "ACCOUNT_ERROR",
     SET_GUEST: "SET_GUEST"
 }
@@ -33,7 +32,7 @@ function AuthContextProvider(props) {
                     user: payload.user,
                     loggedIn: payload.loggedIn,
                     errorMsg: null,
-                    isGuest: false
+                    isGuest: auth.isGuest
                 });
             }
             case AuthActionType.REGISTER_USER: {
@@ -57,14 +56,6 @@ function AuthContextProvider(props) {
                     user: null,
                     loggedIn: false,
                     errorMsg: null,
-                    isGuest: false
-                })
-            }
-            case AuthActionType.UPDATE_USER_LISTS: {
-                return setAuth({
-                    user: auth.user,
-                    loggedIn: true,
-                    errorMsg: payload,
                     isGuest: false
                 })
             }
@@ -165,6 +156,14 @@ function AuthContextProvider(props) {
                 payload: err.response.data.errorMessage
             })
         }
+    }
+
+    auth.signInGuest = function () {
+        authReducer({
+            type: AuthActionType.SET_GUEST,
+            payload: {}
+        })
+        history.push("/community/")
     }
 
     return (

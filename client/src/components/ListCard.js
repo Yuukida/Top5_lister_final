@@ -149,9 +149,12 @@ function ListCard(props) {
 
 
     let bgcolor = "";
-    if(auth.user){
+    if(auth.loggedIn){
         bgcolor = attributes.ownerId === auth.user.userId ? "#fffff1" : "#d4d4f5";
         bgcolor = attributes.published ? "#d4d4f5" : "#fffff1";
+    }else if(auth.isGuest){
+        bgcolor = "#d4d4f5"
+        likeDislike = ""
     }
     let views = 'Views:\xa0\xa0\xa0' + attributes.views;
     let cardElement =
