@@ -2,11 +2,9 @@ import React, { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
 import ListCard from './ListCard.js'
 import { Typography } from '@mui/material'
-import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 import DeleteModal from './DeleteModal';
 import NavBar from './NavBar';
-import { IconButton } from '@mui/material';
 import AuthContext from '../auth';
 
 function CommunityScreen() {
@@ -25,9 +23,6 @@ function CommunityScreen() {
         login()
     }, []);
 
-    function handleCreateNewList() {
-        store.createNewList();
-    }
     let listCard = "";
     if (store) {
         listCard = 
