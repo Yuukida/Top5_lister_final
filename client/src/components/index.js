@@ -7,6 +7,9 @@ import Statusbar from './Statusbar'
 import WorkspaceScreen from './WorkspaceScreen'
 import SignIn from './SignIn'
 import NavBar from './NavBar'
+import AllListsScreen from './AllListsScreen'
+import CommunityScreen from './CommunityScreen'
+import UsersScreen from './UsersScreen'
 /*
     This serves as a module so that we can import
     all the other components as we wish.
@@ -22,4 +25,7 @@ export {
     Statusbar, 
     WorkspaceScreen,
     SignIn,
-    NavBar }
+    NavBar,
+    CommunityScreen,
+    UsersScreen,
+    AllListsScreen }

@@ -53,38 +53,43 @@ export default function NavBar() {
     const { store } = useContext(GlobalStoreContext)
 
     const handleGroup = () => {
-        
+        store.goToAllLists()
     }
 
     const handleHome = () => {
-
+        store.goToHome()
     }
 
     const handleCommunity = () => {
-
+        store.goToCommunity()
     }
 
-    const handleAllLists = () => {
-        
+    const handleUser = () => {
+        store.goToUser()
     }
 
-    const handleSortNewst = () => {
+    const handleSortNewest = () => {
+        store.sortNewest()
         sortMenuClose();
     }
 
     const handleSortOldest = () => {
+        store.sortOldest();
         sortMenuClose();
     }
 
     const handleSortViews = () => {
+        store.sortViews()
         sortMenuClose();
     }
 
     const handleSortLikes = () => {
+        store.sortLikes()
         sortMenuClose();
     }
 
     const handleSortDislikes = () => {
+        store.sortDislikes()
         sortMenuClose();
     }
 
@@ -113,7 +118,7 @@ export default function NavBar() {
             open={isMenuOpen}
             onClose={sortMenuClose}
         >
-            <MenuItem onClick={handleSortNewst}>Publish Date (Newest)</MenuItem>
+            <MenuItem onClick={handleSortNewest}>Publish Date (Newest)</MenuItem>
             <MenuItem onClick={handleSortOldest}>Publish Date (Oldest)</MenuItem>
             <MenuItem onClick={handleSortViews}>Views</MenuItem>
             <MenuItem onClick={handleSortLikes}>Likes</MenuItem>
@@ -132,7 +137,7 @@ export default function NavBar() {
                 size="large"
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}
-                disabled={navbarDisable}
+                disabled={navbarDisable || auth.isGuest}
                 onClick={handleHome}
                 >
                     <HomeOutlinedIcon fontSize="large" ></HomeOutlinedIcon>
@@ -152,7 +157,7 @@ export default function NavBar() {
                 color="inherit"
                 style={{ backgroundColor: 'transparent' }}
                 disabled={navbarDisable}
-                onClick={handleAllLists}>
+                onClick={handleUser}>
                     <PersonOutlineOutlinedIcon fontSize="large" ></PersonOutlineOutlinedIcon>
                 </IconButton>
 

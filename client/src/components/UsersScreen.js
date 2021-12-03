@@ -1,0 +1,59 @@
+import React, { useContext, useEffect } from 'react'
+import { GlobalStoreContext } from '../store'
+import ListCard from './ListCard.js'
+import { Typography } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add';
+import List from '@mui/material/List';
+import DeleteModal from './DeleteModal';
+import NavBar from './NavBar';
+import { IconButton } from '@mui/material';
+import AuthContext from '../auth';
+
+function UsersScreen() {
+    const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
+
+    useEffect(() =>  {
+        async function login() {
+            const log = await auth.getLoggedIn();
+            if(!log){
+                store.welcomePage();
+            }
+        }
+        login()
+    }, []);
+
+    function handleCreateNewList() {
+        store.createNewList();
+    }
+    let listCard = "";
+    if (store) {
+        listCard = 
+            <List sx={{ width: '90%', left: '5%' }}>
+            {
+                store.currentLists.map((pair) => (
+                    <ListCard
+                        key={pair._id}
+                        attributes={pair}
+                        selected={false}
+                    />
+                ))
+            }
+            </List>;
+    }
+    return (
+        <div id="top5-list-selector">
+            <NavBar />
+            <div id="list-selector-heading">
+                <Typography variant="h3">Your Lists</Typography>
+            </div>
+            <div id="list-selector-list">
+                {
+                    listCard
+                }
+                <DeleteModal />
+            </div>
+        </div>)
+}
+
+export default UsersScreen;
