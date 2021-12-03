@@ -171,7 +171,7 @@ function ListCard(props) {
             <Typography sx={{flexGrow:1, fontWeight:"bold", fontSize: 20,}}>{attributes.name} <br/>{"By:\xa0\xa0\xa0" + attributes.ownerId}</Typography>
             
             {likeDislike}
-            <IconButton
+            {store.pageType === "HOME" ? <IconButton
             color="inherit"
             style={{
                 position:"relative",
@@ -181,7 +181,10 @@ function ListCard(props) {
             onClick={(event) => {handleDeleteList(event, attributes._id)}}
             >
                 <DeleteOutlinedIcon fontSize="large"></DeleteOutlinedIcon>
-            </IconButton>
+            </IconButton> : 
+            <Box sx={{width: "3.85%"}}>
+
+            </Box>}
             
             <Box sx={{width: "100%"}}></Box>
             {expandedList}

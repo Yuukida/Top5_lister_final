@@ -24,7 +24,8 @@ export const GlobalStoreActionType = {
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
     LIKE_DISLIKE_LIST: "LIKE_DISLIKE_LIST",
     CHANGE_PAGE: "CHANGE_PAGE",
-    SORT_LISTS: "SORT_LISTS"
+    SORT_LISTS: "SORT_LISTS",
+    SEARCH_LISTS: "SEARCH_LISTS"
 }
 
 export const GlobalStorePageType = {
@@ -170,6 +171,17 @@ function GlobalStoreContextProvider(props) {
                     pageType: store.pageType,
                     sortType: payload.sortType,
                     searched: store.searched
+                })
+            }
+            case GlobalStoreActionType.SEARCH_LISTS: {
+                return setStore({
+                    currentLists: payload.currentLists,
+                    currentList: null,
+                    newListCounter: store.newListCounter,
+                    listMarkedForDeletion: null,
+                    pageType: store.pageType,
+                    sortType: store.sortType,
+                    searched: payload.searched
                 })
             }
             default:
@@ -334,7 +346,15 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             let top5Lists = response.data.top5Lists;
             let publishedLists = top5Lists.filter(list => list.published === true);
-            
+            publishedLists.sort((first, second) => {
+                if(first.creationDate > second.creationDate){
+                    return -1;
+                }else if(first.creationDate < second.creationDate){
+                    return 1
+                }else{
+                    return 0
+                }
+            })
             storeReducer({
                 type: GlobalStoreActionType.CHANGE_PAGE,
                 payload: {
@@ -652,6 +672,87 @@ function GlobalStoreContextProvider(props) {
         history.push("/users/")
     }
     
+    store.searchLists = async function (search) {
+        const response = await api.getTop5ListPairs();
+        if (response.data.success) {
+            let top5Lists = response.data.top5Lists;
+            let publishedLists = top5Lists.filter(list => list.published === true);
+            let searchedLists = publishedLists.filter(list => list.name.toLowerCase() === search.toLowerCase())
+            searchedLists.sort((first, second) => {
+                if(first.updatedDate > second.updatedDate){
+                    return -1;
+                }else if(first.updatedDate < second.updatedDate){
+                    return 1
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SEARCH_LISTS,
+                payload:{
+                    currentLists: searchedLists,
+                    searched: search
+                }
+            })
+        }
+    }
+
+    store.searchStartWith = async function (search) {
+        const response = await api.getTop5ListPairs();
+        if (response.data.success) {
+            let top5Lists = response.data.top5Lists;
+            let publishedLists = top5Lists.filter(list => list.published === true);
+            let searchedLists = publishedLists.filter(list => list.name.toLowerCase().startsWith(search.toLowerCase()))
+            searchedLists.sort((first, second) => {
+                if(first.creationDate > second.creationDate){
+                    return -1;
+                }else if(first.creationDate < second.creationDate){
+                    return 1
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SEARCH_LISTS,
+                payload:{
+                    currentLists: searchedLists,
+                    searched: search
+                }
+            })
+        }
+    }
+
+    store.searchStartWithHome = async function (search) {
+        const response = await api.getTop5ListPairs();
+        if (response.data.success) {
+            let pairsArray = response.data.top5Lists;
+            let ownedLists = pairsArray.filter(list => list.ownerId === auth.user.userId);
+            let searchedLists = ownedLists.filter(list => list.name.toLowerCase().startsWith(search.toLowerCase()))
+            storeReducer({
+                type: GlobalStoreActionType.SEARCH_LISTS,
+                payload:{
+                    currentLists: searchedLists,
+                    searched: search
+                }
+            })
+        }
+    }
+
+    store.searchUsers = async function (search) {
+        const response = await api.getTop5ListPairs();
+        if (response.data.success) {
+            let top5Lists = response.data.top5Lists;
+            let published = top5Lists.filter(list => list.published === true)
+            let searchedLists = published.filter(list => list.ownerId === search)
+            storeReducer({
+                type: GlobalStoreActionType.SEARCH_LISTS,
+                payload:{
+                    currentLists: searchedLists,
+                    searched: search
+                }
+            })
+        }
+    }
 
     return (
         <GlobalStoreContext.Provider value={{

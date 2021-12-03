@@ -51,7 +51,7 @@ export default function NavBar() {
     const isMenuOpen = Boolean(anchorEl);
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext)
-
+    const [search, setSearch] = useState("")
     const handleGroup = () => {
         store.goToAllLists()
     }
@@ -99,6 +99,32 @@ export default function NavBar() {
     
     const sortMenuClose = () => {
         setAnchorEl(null);
+    }
+
+    const handleSearchChange = (event) => {
+        setSearch(event.target.value)
+    }
+
+    const handleSearchKeyPress = (event) => {
+        if(event.code === "Enter"){
+            if(store.pageType === "COMMUNITY"){
+                store.searchLists(search)
+                event.target.value = "";
+                setSearch("")
+            }else if (store.pageType === "USERS"){
+                store.searchUsers(search)
+                event.target.value = "";
+                setSearch("")
+            }else if (store.pageType === "ALLLISTS"){
+                store.searchStartWith(search)
+                event.target.value = "";
+                setSearch("")
+            }else{
+                store.searchStartWithHome(search)
+                event.target.value = "";
+                setSearch("")
+            }
+        }
     }
 
     const menuId = 'primary-search-account-menu';
@@ -174,6 +200,8 @@ export default function NavBar() {
                 sx={{backgroundColor: "white", height:40, width:"40%"}}
                 placeholder="Search"
                 disabled={navbarDisable}
+                onChange={handleSearchChange}
+                onKeyPress={handleSearchKeyPress}
                 />
                 <Box sx={{flex:1}}></Box>
                 

@@ -2,11 +2,9 @@ import React, { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
 import ListCard from './ListCard.js'
 import { Typography } from '@mui/material'
-import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 import DeleteModal from './DeleteModal';
 import NavBar from './NavBar';
-import { IconButton } from '@mui/material';
 import AuthContext from '../auth';
 
 function AllListsScreen() {
@@ -25,9 +23,6 @@ function AllListsScreen() {
         login()
     }, []);
 
-    function handleCreateNewList() {
-        store.createNewList();
-    }
     let listCard = "";
     if (store) {
         listCard = 
@@ -47,7 +42,7 @@ function AllListsScreen() {
         <div id="top5-list-selector">
             <NavBar />
             <div id="list-selector-heading">
-                <Typography variant="h3">Your Lists</Typography>
+                <Typography variant="h3">{store.searched ? store.searched + " Lists" : "All Lists"}</Typography>
             </div>
             <div id="list-selector-list">
                 {

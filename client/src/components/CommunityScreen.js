@@ -47,7 +47,7 @@ function CommunityScreen() {
         <div id="top5-list-selector">
             <NavBar />
             <div id="list-selector-heading">
-                <Typography variant="h3">Your Lists</Typography>
+                <Typography variant="h3">{"Community Lists"}</Typography>
             </div>
             <div id="list-selector-list">
                 {
