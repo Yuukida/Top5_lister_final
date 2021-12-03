@@ -10,7 +10,6 @@ import { GlobalStoreContext } from '../store/index.js'
 
 
 function ExpandedListCard(props) {
-
     const {attributes} = props;
     const [comment, setComment] = useState("")
     const { store } = useContext(GlobalStoreContext);
