@@ -389,9 +389,9 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             let aggregates = response.data.aggregates;
             aggregates.sort((first, second) => {
-                if(first.updatedDate > second.updatedDate){
+                if(first.updatedAt > second.updatedAt){
                     return -1;
-                }else if(first.updatedDate < second.updatedDate){
+                }else if(first.updatedAt < second.updatedAt){
                     return 1
                 }else{
                     return 0
@@ -818,104 +818,216 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.sortNewest = function () {
-        let publishedLists = store.currentLists.filter(list => list.published === true)
-        let unpublishedLists = store.currentLists.filter(list => list.published === false)
-        publishedLists.sort((first, second) => {
-            if(first.publishDate > second.publishDate){
-                return -1
-            }else if(first.publishDate < second.publishDate){
-                return 1;
-            }else{
-                return 0
-            }
-        })
-        let lists = publishedLists.concat(unpublishedLists)
-        storeReducer({
-            type: GlobalStoreActionType.SORT_LISTS,
-            payload: {
-                currentLists: lists,
-                sortType: GlobalStoreSortType.NEWEST
-            }
-        })
+        if(store.pageType === "COMMUNITY"){
+            let publishedLists = store.communityLists
+            publishedLists.sort((first, second) => {
+                if(first.publishDate > second.publishDate){
+                    return -1
+                }else if(first.publishDate < second.publishDate){
+                    return 1;
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: store.currentLists,
+                    sortType: GlobalStoreSortType.NEWEST,
+                    communityLists: publishedLists
+                }
+            })
+        }else{
+            let publishedLists = store.currentLists.filter(list => list.published === true)
+            let unpublishedLists = store.currentLists.filter(list => list.published === false)
+            publishedLists.sort((first, second) => {
+                if(first.publishDate > second.publishDate){
+                    return -1
+                }else if(first.publishDate < second.publishDate){
+                    return 1;
+                }else{
+                    return 0
+                }
+            })
+            let lists = []
+            lists = publishedLists.concat(unpublishedLists)
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: lists,
+                    sortType: GlobalStoreSortType.NEWEST,
+                    communityLists: store.commmunityLists
+                }
+            })
+
+        }
     }
     store.sortOldest = function () {
-        let publishedLists = store.currentLists.filter(list => list.published === true)
-        let unpublishedLists = store.currentLists.filter(list => list.published === false)
-        publishedLists.sort((first, second) => {
-            if(first.publishDate > second.publishDate){
-                return 1
-            }else if(first.publishDate < second.publishDate){
-                return -1;
-            }else{
-                return 0
-            }
-        })
-        let lists = publishedLists.concat(unpublishedLists)
-        storeReducer({
-            type: GlobalStoreActionType.SORT_LISTS,
-            payload: {
-                currentLists: lists,
-                sortType: GlobalStoreSortType.NEWEST
-            }
-        })
+        if(store.pageType === "COMMUNITY"){
+            let publishedLists = store.communityLists
+            publishedLists.sort((first, second) => {
+                if(first.publishDate > second.publishDate){
+                    return 1
+                }else if(first.publishDate < second.publishDate){
+                    return -1;
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: store.currentLists,
+                    sortType: GlobalStoreSortType.OLDEST,
+                    communityLists: publishedLists
+                }
+            })
+        }else{
+            let publishedLists = store.currentLists.filter(list => list.published === true)
+            let unpublishedLists = store.currentLists.filter(list => list.published === false)
+            publishedLists.sort((first, second) => {
+                if(first.publishDate > second.publishDate){
+                    return 1
+                }else if(first.publishDate < second.publishDate){
+                    return -1;
+                }else{
+                    return 0
+                }
+            })
+            let lists = publishedLists.concat(unpublishedLists)
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: lists,
+                    sortType: GlobalStoreSortType.OLDEST,
+                    communityLists: store.commmunityLists
+                }
+            })
+
+        }
     }
     store.sortViews = function() {
-        let lists = store.currentLists
-        lists.sort((first, second) => {
-            if(first.views > second.views){
-                return -1
-            }else if(first.views < second.views){
-                return 1;
-            }else{
-                return 0
-            }
-        })
-        storeReducer({
-            type: GlobalStoreActionType.SORT_LISTS,
-            payload: {
-                currentLists: lists,
-                sortType: GlobalStoreSortType.NEWEST
-            }
-        })
+        if(store.pageType === "COMMUNITY"){
+            let lists = store.communityLists
+            lists.sort((first, second) => {
+                if(first.views > second.views){
+                    return -1
+                }else if(first.views < second.views){
+                    return 1;
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: store.currentLists,
+                    sortType: GlobalStoreSortType.VIEWS,
+                    communityLists: lists
+                }
+            })
+        }else{
+            let lists = store.currentLists
+            lists.sort((first, second) => {
+                if(first.views > second.views){
+                    return -1
+                }else if(first.views < second.views){
+                    return 1;
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: lists,
+                    sortType: GlobalStoreSortType.VIEWS,
+                    communityLists: store.communityLists
+                }
+            })
+        }
     }
     store.sortLikes = function(){
-        let lists = store.currentLists
-        lists.sort((first, second) => {
-            if(first.likes > second.likes){
-                return -1
-            }else if(first.likes < second.likes){
-                return 1;
-            }else{
-                return 0
-            }
-        })
-        storeReducer({
-            type: GlobalStoreActionType.SORT_LISTS,
-            payload: {
-                currentLists: lists,
-                sortType: GlobalStoreSortType.NEWEST
-            }
-        })
+        if(store.pageType === "COMMUNITY"){
+            let lists = store.communityLists
+            lists.sort((first, second) => {
+                if(first.likes > second.likes){
+                    return -1
+                }else if(first.likes < second.likes){
+                    return 1;
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: lists,
+                    sortType: GlobalStoreSortType.LIKE,
+                    communityLists: lists
+                }
+            })
+        }else{
+            let lists = store.currentLists
+            lists.sort((first, second) => {
+                if(first.likes > second.likes){
+                    return -1
+                }else if(first.likes < second.likes){
+                    return 1;
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: lists,
+                    sortType: GlobalStoreSortType.LIKE,
+                    communityLists: store.communityLists
+                }
+            })
+        }
     }
     store.sortDislikes = function(){
-        let lists = store.currentLists
-        lists.sort((first, second) => {
-            console.log(first.dislikes)
-            if(first.dislikes > second.dislikes){
-                return -1
-            }else if(first.dislikes < second.dislikes){
-                return 1;
-            }else{
-                return 0
-            }
-        })
-        storeReducer({
-            type: GlobalStoreActionType.SORT_LISTS,
-            payload: {
-                currentLists: lists,
-                sortType: GlobalStoreSortType.NEWEST
-            }
-        })
+        if(store.pageType === "COMMUNITY"){
+            let lists = store.communityLists
+            lists.sort((first, second) => {
+                if(first.dislikes > second.dislikes){
+                    return -1
+                }else if(first.dislikes < second.dislikes){
+                    return 1;
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: store.currentLists,
+                    sortType: GlobalStoreSortType.DISLIKE,
+                    communityLists: lists
+                }
+            })
+        }else{
+            let lists = store.currentLists
+            lists.sort((first, second) => {
+                if(first.dislikes > second.dislikes){
+                    return -1
+                }else if(first.dislikes < second.dislikes){
+                    return 1;
+                }else{
+                    return 0
+                }
+            })
+            storeReducer({
+                type: GlobalStoreActionType.SORT_LISTS,
+                payload: {
+                    currentLists: lists,
+                    sortType: GlobalStoreSortType.DISLIKE,
+                    communityLists: store.communityLists
+                }
+            })
+        }
     }
 
     store.goToAllLists = async function() {
