@@ -152,8 +152,12 @@ function WorkspaceScreen() {
                     {editItems}
                         
                     
-                    <Grid container
-                        sx={{width:"97%", height: "100%", justifyContent:"right", display:"flex", m:1,  }}
+                    <div style={{
+                        display: "flex",
+                        width: "97%",
+                        justifyContent: "flex-end",
+                        
+                    }}
                     >
                     <Button
                     sx={{
@@ -163,7 +167,7 @@ function WorkspaceScreen() {
                         fontSize: 20, 
                         border:1, 
                         borderRadius:2, 
-                        height:"8%",
+                        height:45,
                         width: "10%",
                      }}
                      onClick={(event) => handleSaveList(event, store.currentList._id)}
@@ -179,7 +183,7 @@ function WorkspaceScreen() {
                         fontSize: 20, 
                         border:1, 
                         borderRadius:2, 
-                        height:"8%",
+                        height:45,
                         width: "10%",
                      }}
                      
@@ -188,7 +192,7 @@ function WorkspaceScreen() {
                     >
                         {"PUBLISH"}
                     </Button>
-                    </Grid>
+                    </div>
 
                 </Grid>
                 
