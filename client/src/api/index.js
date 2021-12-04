@@ -38,6 +38,7 @@ export const createAggregates = (payload) => api.post(`/aggregates/`, payload)
 export const updateAggregates = (id, payload) => api.put(`/aggregates/${id}`, payload)
 export const deleteAggregates = (id) => api.delete(`/aggregates/${id}`)
 export const getAllAggregates = () => api.get(`/aggregates/`)
+export const getAggregateById = (id) => api.get(`/aggregates/${id}`)
 
 const apis = {
     createTop5List,
@@ -55,7 +56,8 @@ const apis = {
     createAggregates,
     updateAggregates,
     deleteAggregates,
-    getAllAggregates
+    getAllAggregates,
+    getAggregateById
 }
 
 export default apis

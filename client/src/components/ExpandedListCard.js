@@ -26,10 +26,16 @@ function ExpandedListCard(props) {
             setComment("")
         }
     }
+ 
+    const handleCommunityComment = (event, id) =>{
+        if(event.code === "Enter"){
+            store.postCommunityComment(id, comment)
+            event.target.value = ""
+            setComment("")
+        }
+    }
 
-    let itemList = attributes.items.map( (item, index) => 
-            <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 25, m:1,}}>{index+1+". " + item}</Typography>
-    )
+    let itemList = []
     let commentList = attributes.comments.map( (comment, index) => 
             <ListItem 
             key={index}
@@ -58,6 +64,31 @@ function ExpandedListCard(props) {
                         onChange={handleCommentChange}
                         onKeyPress={(event) => handleCommentKeyPress(event, attributes._id)}
                     />
+
+        itemList = attributes.items.map( (item, index) => 
+        <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 25, m:1,}}>{index+1+". " + item}</Typography>
+)
+    }
+    if(store.pageType === "COMMUNITY") {
+        let itemsCount = attributes.itemsCount
+        let index = 0;
+        for(let key in itemsCount){
+            let item = 
+                    <>
+                    <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 20, ml:1,}}>{index+1+". " + key} </Typography>
+                    <Typography sx={{ color: "#c7a53a", fontSize: 15, ml:1}}>{"(" + itemsCount[key] + " Votes)"}</Typography>
+                    </>
+                        
+            index++;
+            itemList.push(item)
+        }
+        comments =
+        <InputBase
+                        sx={{backgroundColor: "white", height:40, width:"95%", borderRadius: 2}}
+                        placeholder="Comment"
+                        onChange={handleCommentChange}
+                        onKeyPress={(event) => handleCommunityComment(event, attributes._id)}
+                    />
     }
     if(auth.isGuest){
         comments = ""
@@ -69,7 +100,7 @@ function ExpandedListCard(props) {
             </Box>
 
             <Box sx={{width: "48%", m:1, display:"flex", flexDirection: "column"}}>
-                <Box style={{maxHeight: 200, overflowY: 'auto', flex:1}} >
+                <Box style={{maxHeight: 250, overflowY: 'auto', flex:1}} >
                     <List >
                         {commentList}
                     </List>

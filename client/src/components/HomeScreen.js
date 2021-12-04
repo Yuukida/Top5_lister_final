@@ -13,8 +13,8 @@ function HomeScreen() {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
 
-    useEffect(() =>  {
-        async function login() {
+    useEffect(async() =>  {
+        if(!auth.loggedIn){
             const log = await auth.getLoggedIn();
             if(log){
                 store.loadHomeLists();
@@ -22,7 +22,6 @@ function HomeScreen() {
                 store.welcomePage();
             }
         }
-        login()
     }, []);
 
     function handleCreateNewList() {

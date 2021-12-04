@@ -28,7 +28,7 @@ function CommunityScreen() {
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {
-                store.currentLists.map((pair) => (
+                store.communityLists.map((pair) => (
                     <ListCard
                         key={pair._id}
                         attributes={pair}

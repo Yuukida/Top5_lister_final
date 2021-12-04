@@ -26,7 +26,9 @@ function ListCard(props) {
 
     function handleExpand(event, id) {
         event.stopPropagation();
-        if(store.pageType !== "HOME"){
+        if(store.pageType === "COMMUNITY"){
+            store.handleCommunityViews(id)
+        }else if(store.pageType !== "HOME"){
             store.handleViews(id)
         }
         setExpand(true);
@@ -48,6 +50,15 @@ function ListCard(props) {
     function handleDislikeList(event, id) {
         store.dislikeList(id)
     }
+
+    function handleCommunityLike(event, id) {
+        store.likeCommunityList(id)
+    }
+
+    function handleCommunityDislike(event, id) {
+        store.dislikeCommunityLists(id)
+    }
+
 
     let expandedList = "";
     if(expand){
@@ -90,6 +101,63 @@ function ListCard(props) {
 
     let likeDislike = ""
     
+    if(store.pageType === "COMMUNITY"){
+        let date = new Date(attributes.publishDate)
+        const month = date.toLocaleString('default', { month: 'short' });
+        let day = date.getDate();
+        let year = date.getFullYear();
+        date = month + " " + day + ", " + year;
+        
+        editOrPublish = 
+            <>
+            <Typography sx={{fontWeight: "bold"}}>
+                {"Published:\xa0\xa0\xa0"}
+            </Typography>
+            <Typography sx={{flex:0.94, color: "green", fontWeight: "bold"}}>
+                {date}
+            </Typography>
+            </>
+
+            likeDislike = 
+            <>
+                <IconButton
+                color="inherit"
+                style={{
+                    position:"relative",
+                    right: 40,
+                    bottom:5
+                }}
+                onClick={(event) => handleCommunityLike(event, attributes._id)}
+                >
+                    {attributes.likedUsers.includes(auth.user?.userId) ? <ThumbUpAltIcon fontSize="large"></ThumbUpAltIcon> :<ThumbUpOutlinedIcon fontSize="large"></ThumbUpOutlinedIcon>}
+                </IconButton>
+                <Typography 
+                sx={{fontWeight: "bold", fontSize: 15}} 
+                style={{
+                    position:"relative",
+                    right: 40,
+                    bottom:5
+                }}>{attributes.likes}</Typography>
+                <IconButton
+                color="inherit"
+                style={{
+                    position:"relative",
+                    right: 30,
+                    bottom:5
+                }}
+                onClick={(event) => handleCommunityDislike(event, attributes._id)}>
+                    {attributes.dislikedUsers.includes(auth.user?.userId) ? <ThumbDownAltIcon fontSize="large"></ThumbDownAltIcon> : <ThumbDownOutlinedIcon fontSize="large"></ThumbDownOutlinedIcon>}
+                </IconButton>
+                <Typography 
+                sx={{fontWeight: "bold", fontSize: 15}}
+                style={{
+                    position:"relative",
+                    right: 30,
+                    bottom:5
+                }}>{attributes.dislikes}</Typography>
+            </>
+    }
+
     if(attributes.published){
         let date = new Date(attributes.publishDate)
         const month = date.toLocaleString('default', { month: 'short' });
@@ -147,11 +215,13 @@ function ListCard(props) {
         </>
     }
 
-
     let bgcolor = "";
     if(auth.loggedIn){
         bgcolor = attributes.ownerId === auth.user.userId ? "#fffff1" : "#d4d4f5";
         bgcolor = attributes.published ? "#d4d4f5" : "#fffff1";
+        if(store.pageType === "COMMUNITY"){
+            bgcolor = "#d4d4f5"
+        }
     }else if(auth.isGuest){
         bgcolor = "#d4d4f5"
         likeDislike = ""
@@ -174,7 +244,7 @@ function ListCard(props) {
         >
                 
             
-            <Typography sx={{flexGrow:1, fontWeight:"bold", fontSize: 20,}}>{attributes.name} <br/>{"By:\xa0\xa0\xa0" + attributes.ownerId}</Typography>
+            <Typography sx={{flexGrow:1, fontWeight:"bold", fontSize: 20,}}>{attributes.name} <br/>{"By:\xa0\xa0\xa0" + store.pageType === "COMMUNITY" ? "" : attributes.ownerId}</Typography>
             
             {likeDislike}
             {store.pageType === "HOME" ? <IconButton
@@ -200,7 +270,7 @@ function ListCard(props) {
             {editOrPublish}         
             
 
-            {attributes.published? <Typography  sx={{flex:0.135, fontWeight:"bold"}}>{views}</Typography>: ""}
+            {attributes.published || store.pageType === "COMMUNITY" ? <Typography  sx={{flex:0.135, fontWeight:"bold"}}>{views}</Typography>: ""}
 
             {expandIcon}
 

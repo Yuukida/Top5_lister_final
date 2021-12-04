@@ -150,7 +150,7 @@ function GlobalStoreContextProvider(props) {
                     pageType: store.pageType,
                     sortType: store.sortType,
                     searched: store.searched,
-                    communityLists: payload.communityLists
+                    communityLists: store.communityLists
                 })
             }
             case GlobalStoreActionType.CHANGE_PAGE: {
@@ -300,6 +300,28 @@ function GlobalStoreContextProvider(props) {
             updateList(top5List);
         }
     }
+
+    store.handleCommunityViews = async function (id) {
+        let response = await api.getAggregateById(id);
+        if (response.data.success) {
+            let aggregate = response.data.aggregate;
+            console.log(aggregate)
+            aggregate.views++;
+            async function updateList(aggregate) {
+                response = await api.updateAggregates(aggregate._id, aggregate);
+                if (response.data.success) {
+                    const list = store.communityLists.find(list => list._id === id)
+                    list.views++;
+                    storeReducer({
+                        type: GlobalStoreActionType.LIKE_DISLIKE_LIST,
+                        payload: {}
+                    })
+                }
+            }
+            updateList(aggregate);
+        }
+    }
+
     // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
     store.closeCurrentList = function () {
         storeReducer({
@@ -356,17 +378,17 @@ function GlobalStoreContextProvider(props) {
                 payload: {
                     currentLists: ownedLists,
                     pageType: GlobalStorePageType.HOME,
+                    communityLists: store.communityLists
                 }
             });
         }
     }
 
     store.loadCommunityLists = async function () {
-        const response = await api.getTop5ListPairs();
+        const response = await api.getAllAggregates();
         if (response.data.success) {
-            let top5Lists = response.data.top5Lists;
-            let publishedLists = top5Lists.filter(list => list.published === true);
-            publishedLists.sort((first, second) => {
+            let aggregates = response.data.aggregates;
+            aggregates.sort((first, second) => {
                 if(first.updatedDate > second.updatedDate){
                     return -1;
                 }else if(first.updatedDate < second.updatedDate){
@@ -378,8 +400,9 @@ function GlobalStoreContextProvider(props) {
             storeReducer({
                 type: GlobalStoreActionType.CHANGE_PAGE,
                 payload: {
-                    currentLists: publishedLists,
+                    currentLists: store.currentList,
                     pageType: GlobalStorePageType.COMMUNITY,
+                    communityLists: aggregates
                 }
             });
         }
@@ -404,6 +427,7 @@ function GlobalStoreContextProvider(props) {
                 payload: {
                     currentLists: publishedLists,
                     pageType: GlobalStorePageType.ALLLISTS,
+                    communityLists: store.communityLists
                 }
             });
         }
@@ -447,9 +471,15 @@ function GlobalStoreContextProvider(props) {
                     let itemsCount = Object.fromEntries(itemsCountMap);
                     let payload = {
                         name: newlist.name,
-                        topItems: newlist.items,
                         itemsCount: itemsCount,
-                        users: [newlist.ownerId]
+                        users: [newlist.ownerId],
+                        likes: 0,
+                        likedUsers: [],
+                        dislikes: 0,
+                        dislikedUsers: [],
+                        views: 0,
+                        comments: [],
+                        publishDate: new Date()
                     };
                     let response = await api.createAggregates(payload)
                     if(response.data.success){
@@ -469,9 +499,15 @@ function GlobalStoreContextProvider(props) {
             let itemsCount = Object.fromEntries(itemsCountMap);
             let payload = {
                 name: newlist.name,
-                topItems: newlist.items,
                 itemsCount: itemsCount,
-                users: [newlist.ownerId]
+                users: [newlist.ownerId],
+                likes: 0,
+                likedUsers: [],
+                dislikes: 0,
+                dislikedUsers: [],
+                views: 0,
+                comments: [],
+                publishDate: new Date()
             };
             let response = await api.createAggregates(payload)
             if(response.data.success){
@@ -506,6 +542,31 @@ function GlobalStoreContextProvider(props) {
             updateList(top5List);
         }
     }
+
+    store.postCommunityComment = async function(id, comment) {
+        let response = await api.getAggregateById(id);
+        if (response.data.success) {
+            let aggregate = response.data.aggregate;
+
+            let comments = aggregate.comments
+            let newComment = [auth.user.userId, comment]
+            comments.unshift(newComment)
+            aggregate.comments = comments
+            async function updateList(aggregate) {
+                response = await api.updateAggregates(aggregate._id, aggregate);
+                if (response.data.success) {
+                    const list = store.communityLists.find(list => list._id === id)
+                    list.comments = comments
+                    storeReducer({
+                        type: GlobalStoreActionType.LIKE_DISLIKE_LIST,
+                        payload: {}
+                    })
+                }
+            }
+            updateList(aggregate);
+        }
+    }
+
     // THE FOLLOWING 5 FUNCTIONS ARE FOR COORDINATING THE DELETION
     // OF A LIST, WHICH INCLUDES USING A VERIFICATION MODAL. THE
     // FUNCTIONS ARE markListForDeletion, deleteList, deleteMarkedList,
@@ -581,6 +642,94 @@ function GlobalStoreContextProvider(props) {
                 }
             }
             updateList(top5List);
+        }
+    }
+
+    store.likeCommunityList = async function (id) {
+        let response = await api.getAggregateById(id);
+        if (response.data.success) {
+            let aggregate = response.data.aggregate;
+
+            let user = auth.user.userId;
+            let likeArray = aggregate.likedUsers
+            let likes = aggregate.likes
+            let dislikeArray = aggregate.dislikedUsers
+            let dislikes = aggregate.dislikes
+            if(likeArray.includes(user)){
+                likeArray.pop(user)
+                likes--;
+            }else if(dislikeArray.includes(user)){
+                likeArray.push(user);
+                likes++;
+                dislikeArray.pop(user)
+                dislikes--;
+            }else{
+                likeArray.push(user);
+                likes++;
+            }
+            aggregate.likedUsers = likeArray;
+            aggregate.likes = likes;
+            aggregate.dislikes = dislikes;
+            aggregate.dislikedUsers = dislikeArray
+            async function updateList(aggregate) {
+                response = await api.updateAggregates(aggregate._id, aggregate);
+                if (response.data.success) {
+                    const list = store.communityLists.find(list => list._id === id)
+                    list.likedUsers = likeArray;
+                    list.likes = likes;
+                    list.dislikes = dislikes;
+                    list.dislikedUsers = dislikeArray;
+                    storeReducer({
+                        type: GlobalStoreActionType.LIKE_DISLIKE_LIST,
+                        payload: {}
+                    })
+                }
+            }
+            updateList(aggregate);
+        }
+    }
+
+    store.dislikeCommunityLists = async function (id) {
+        let response = await api.getAggregateById(id);
+        if (response.data.success) {
+            let aggregate = response.data.aggregate;
+
+            let user = auth.user.userId;
+            let likeArray = aggregate.likedUsers
+            let likes = aggregate.likes
+            let dislikeArray = aggregate.dislikedUsers
+            let dislikes = aggregate.dislikes
+            if(dislikeArray.includes(user)){
+                dislikeArray.pop(user)
+                dislikes--;
+            }else if(likeArray.includes(user)){
+                dislikeArray.push(user);
+                dislikes++;
+                likeArray.pop(user)
+                likes--;
+            }else{
+                dislikeArray.push(user);
+                dislikes++;
+            }
+            aggregate.likedUsers = likeArray;
+            aggregate.likes = likes;
+            aggregate.dislikes = dislikes;
+            aggregate.dislikedUsers = dislikeArray
+            async function updateList(aggregate) {
+                response = await api.updateAggregates(aggregate._id, aggregate);
+                if (response.data.success) {
+                    const list = store.communityLists.find(list => list._id === id)
+                    list.likedUsers = likeArray;
+                    list.likes = likes;
+                    list.dislikes = dislikes;
+                    list.dislikedUsers = dislikeArray;
+                    storeReducer({
+                        type: GlobalStoreActionType.LIKE_DISLIKE_LIST,
+                        payload: {}
+                    })
+                }
+            }
+            updateList(aggregate);
         }
     }
 
@@ -770,20 +919,24 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.goToAllLists = async function() {
+        await store.loadDefaultAllLists();
         history.push("/alllists/")
     }
-    store.goToHome = function() {
+    store.goToHome = async function() {
+        await store.loadHomeLists();
         history.push("/home/")
     }
-    store.goToCommunity = function(){
+    store.goToCommunity = async function(){
         history.push("/community/")
+        await store.loadCommunityLists();
     }
-    store.goToUser = async function() {
+    store.goToUser = function() {
         storeReducer({
             type: GlobalStoreActionType.CHANGE_PAGE,
             payload: {
                 currentLists: [],
                 pageType: GlobalStorePageType.USERS,
+                communityLists: store.communityLists
             }
         });
         history.push("/users/")
