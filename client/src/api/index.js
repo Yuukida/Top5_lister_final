@@ -34,6 +34,11 @@ export const registerUser = (payload) => api.post(`/register/`, payload)
 export const loginUser = (payload) => api.post(`/login/`, payload)
 export const logoutUser = () => api.get(`/logout/`)
 
+export const createAggregates = (payload) => api.post(`/aggregates/`, payload)
+export const updateAggregates = (id, payload) => api.put(`/aggregates/${id}`, payload)
+export const deleteAggregates = (id) => api.delete(`/aggregates/${id}`)
+export const getAllAggregates = () => api.get(`/aggregates/`)
+
 const apis = {
     createTop5List,
     getAllTop5Lists,
@@ -46,6 +51,11 @@ const apis = {
     registerUser,
     loginUser,
     logoutUser,
+
+    createAggregates,
+    updateAggregates,
+    deleteAggregates,
+    getAllAggregates
 }
 
 export default apis

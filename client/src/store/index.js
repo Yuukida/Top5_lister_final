@@ -50,7 +50,8 @@ function GlobalStoreContextProvider(props) {
         listMarkedForDeletion: null,
         pageType: null,
         sortType: null,
-        searched: ""
+        searched: "",
+        communityLists: []
     });
     const history = useHistory();
 
@@ -71,7 +72,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: store.pageType,
                     sortType: store.sortType,
-                    searched: store.searched
+                    searched: store.searched,
+                    communityLists: payload.communityLists
                 });
             }
             // STOP EDITING THE CURRENT LIST
@@ -83,7 +85,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: store.pageType,
                     sortType: store.sortType,
-                    searched: store.searched
+                    searched: store.searched,
+                    communityLists: store.communityLists
                 })
             }
             // CREATE A NEW LIST
@@ -95,7 +98,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: store.pageType,
                     sortType: store.sortType,
-                    searched: store.searched
+                    searched: store.searched,
+                    communityLists: payload.communityLists
                 })
             }
             // PREPARE TO DELETE A LIST
@@ -107,7 +111,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: payload,
                     pageType: store.pageType,
                     sortType: store.sortType,
-                    searched: store.searched
+                    searched: store.searched,
+                    communityLists: store.communityLists
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -119,7 +124,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: store.pageType,
                     sortType: store.sortType,
-                    searched: store.searched
+                    searched: store.searched,
+                    communityLists: store.communityLists
                 });
             }
             // UPDATE A LIST
@@ -131,7 +137,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: store.pageType,
                     sortType: store.sortType,
-                    searched: store.searched
+                    searched: store.searched,
+                    communityLists: store.communityLists
                 });
             }
             case GlobalStoreActionType.LIKE_DISLIKE_LIST: {
@@ -142,7 +149,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: store.pageType,
                     sortType: store.sortType,
-                    searched: store.searched
+                    searched: store.searched,
+                    communityLists: payload.communityLists
                 })
             }
             case GlobalStoreActionType.CHANGE_PAGE: {
@@ -153,7 +161,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: payload.pageType,
                     sortType: null,
-                    searched: ""
+                    searched: "",
+                    communityLists: payload.communityLists
                 })
             }
             case GlobalStoreActionType.SORT_LISTS: {
@@ -164,7 +173,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: store.pageType,
                     sortType: payload.sortType,
-                    searched: store.searched
+                    searched: store.searched,
+                    communityLists: payload.communityLists
                 })
             }
             case GlobalStoreActionType.SEARCH_LISTS: {
@@ -175,7 +185,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: store.pageType,
                     sortType: store.sortType,
-                    searched: payload.searched
+                    searched: payload.searched,
+                    communityLists: payload.communityLists
                 })
             }
             case GlobalStoreActionType.RESET_COUNT: {
@@ -186,7 +197,8 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     pageType: store.pageType,
                     sortType: store.sortType,
-                    searched: store.searched
+                    searched: store.searched,
+                    communityLists: store.communityLists
                 })
             }
             default:
@@ -222,6 +234,7 @@ function GlobalStoreContextProvider(props) {
                                 type: GlobalStoreActionType.SAVE_PUBLISH_LIST,
                                 payload: {
                                     currentLists: ownedLists,
+                                    communityLists: store.communityLists
                                 }
                             });
                             history.push("/home/");
@@ -250,10 +263,13 @@ function GlobalStoreContextProvider(props) {
                         if (response.data.success) {
                             let pairsArray = response.data.top5Lists;
                             let ownedLists = pairsArray.filter(list => list.ownerId === auth.user.userId);
+                            let communityLists = await store.updateCommunity(top5List)
+                            console.log(communityLists)
                             storeReducer({
                                 type: GlobalStoreActionType.SAVE_PUBLISH_LIST,
                                 payload: {
                                     currentLists: ownedLists,
+                                    communityLists: communityLists
                                 }
                             });
                             history.push("/home/");
@@ -390,6 +406,80 @@ function GlobalStoreContextProvider(props) {
                     pageType: GlobalStorePageType.ALLLISTS,
                 }
             });
+        }
+    }
+
+    store.updateCommunity = async function (newlist) {
+        try{
+            let response = await api.getAllAggregates();
+            if(response.data.success){
+                let aggregates = response.data.aggregates
+                const index = aggregates.findIndex(list => list.name.toLowerCase() === newlist.name.toLowerCase())
+                console.log(index)
+                const matchingList = aggregates[index]
+                if(matchingList){ // update
+                    let itemsCount = matchingList.itemsCount
+                    let items = newlist.items
+                    for(let index in items){
+                        if(items[index] in itemsCount){
+                            itemsCount[items[index]]++
+                        }else{
+                            itemsCount[items[index]] = 1
+                        }
+                    }
+                    let itemsCountMap = new Map([...Object.entries(itemsCount)].sort((a, b) => b[1] - a[1]));
+                    itemsCount = Object.fromEntries(itemsCountMap);
+                    aggregates[index].itemsCount = itemsCount;
+                    aggregates[index].users.push(newlist.ownerId)
+                    let response = await api.updateAggregates(aggregates[index]._id, aggregates[index])
+                    if(response.data.success){
+                        response = await api.getAllAggregates();
+                        if(response.data.success){
+                            return response.data.aggregates
+                        }
+                    } 
+                }else{ // no entries in collection
+                    let itemsCountMap = new Map()
+                    let items = newlist.items
+                    for(let index in items){
+                        itemsCountMap.set(items[index], 1)
+                    }
+                    let itemsCount = Object.fromEntries(itemsCountMap);
+                    let payload = {
+                        name: newlist.name,
+                        topItems: newlist.items,
+                        itemsCount: itemsCount,
+                        users: [newlist.ownerId]
+                    };
+                    let response = await api.createAggregates(payload)
+                    if(response.data.success){
+                        response = await api.getAllAggregates();
+                        if(response.data.success){
+                            return response.data.aggregates
+                        }
+                    }
+                }
+            }
+        }catch (err){ // zero entries in collection
+            let itemsCountMap = new Map()
+            let items = newlist.items
+            for(let index in items){
+                itemsCountMap.set(items[index], 1)
+            }
+            let itemsCount = Object.fromEntries(itemsCountMap);
+            let payload = {
+                name: newlist.name,
+                topItems: newlist.items,
+                itemsCount: itemsCount,
+                users: [newlist.ownerId]
+            };
+            let response = await api.createAggregates(payload)
+            if(response.data.success){
+                response = await api.getAllAggregates();
+                if(response.data.success){
+                    return response.data.aggregates
+                }
+            }
         }
     }
 
