@@ -1053,49 +1053,13 @@ function GlobalStoreContextProvider(props) {
         });
         history.push("/users/")
     }
-    
-    store.searchLists = async function (search) {
-        const response = await api.getTop5ListPairs();
-        if (response.data.success) {
-            let top5Lists = response.data.top5Lists;
-            let publishedLists = top5Lists.filter(list => list.published === true);
-            let searchedLists = publishedLists.filter(list => list.name.toLowerCase() === search.toLowerCase())
-            searchedLists.sort((first, second) => {
-                if(first.updatedDate > second.updatedDate){
-                    return -1;
-                }else if(first.updatedDate < second.updatedDate){
-                    return 1
-                }else{
-                    return 0
-                }
-            })
-            storeReducer({
-                type: GlobalStoreActionType.SEARCH_LISTS,
-                payload:{
-                    currentLists: searchedLists,
-                    searched: search
-                }
-            })
-        }
-    }
 
     store.searchStartWith = async function (search) {
-        const response = await api.getTop5ListPairs();
-        if (response.data.success) {
-            let top5Lists = response.data.top5Lists;
-            let publishedLists = top5Lists.filter(list => list.published === true);
-            let searchedLists = publishedLists.filter(list => list.name.toLowerCase().startsWith(search.toLowerCase()))
-            if(store.paheType === "COMMUNITY"){
-                searchedLists.sort((first, second) => {
-                    if(first.updatedDate > second.updatedDate){
-                        return -1;
-                    }else if(first.updatedDate < second.updatedDate){
-                        return 1
-                    }else{
-                        return 0
-                    }
-                })
-            }else{
+        if(store.pageType === "COMMUNITY"){
+            const response = await api.getAllAggregates();
+            if (response.data.success) {
+                let aggregates = response.data.aggregates;
+                let searchedLists = aggregates.filter(list => list.name.toLowerCase().includes(search.toLowerCase()))
                 searchedLists.sort((first, second) => {
                     if(first.creationDate > second.creationDate){
                         return -1;
@@ -1105,14 +1069,39 @@ function GlobalStoreContextProvider(props) {
                         return 0
                     }
                 })
+                storeReducer({
+                    type: GlobalStoreActionType.SEARCH_LISTS,
+                    payload:{
+                        currentLists: store.currentLists,
+                        searched: search,
+                        communityLists: searchedLists
+                    }
+                })
             }
-            storeReducer({
-                type: GlobalStoreActionType.SEARCH_LISTS,
-                payload:{
-                    currentLists: searchedLists,
-                    searched: search
-                }
-            })
+        }else{
+            const response = await api.getTop5ListPairs();
+            if (response.data.success) {
+                let top5Lists = response.data.top5Lists;
+                let publishedLists = top5Lists.filter(list => list.published === true);
+                let searchedLists = publishedLists.filter(list => list.name.toLowerCase().includes(search.toLowerCase()))
+                searchedLists.sort((first, second) => {
+                    if(first.creationDate > second.creationDate){
+                        return -1;
+                    }else if(first.creationDate < second.creationDate){
+                        return 1
+                    }else{
+                        return 0
+                    }
+                })
+                storeReducer({
+                    type: GlobalStoreActionType.SEARCH_LISTS,
+                    payload:{
+                        currentLists: searchedLists,
+                        searched: search,
+                        communityLists: store.communityLists
+                    }
+                })
+            }
         }
     }
 
@@ -1126,7 +1115,8 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.SEARCH_LISTS,
                 payload:{
                     currentLists: searchedLists,
-                    searched: search
+                    searched: search,
+                    communityLists: store.communityLists
                 }
             })
         }
@@ -1142,7 +1132,8 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.SEARCH_LISTS,
                 payload:{
                     currentLists: searchedLists,
-                    searched: search
+                    searched: search,
+                    communityLists: store.communityLists
                 }
             })
         }
