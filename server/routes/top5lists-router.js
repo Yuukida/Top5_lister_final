@@ -21,4 +21,5 @@ router.post('/aggregates', CommunityController.createAggregates)
 router.put('/aggregates/:id', CommunityController.updateAggregates)
 router.delete("/aggregates/:id", CommunityController.deleteAggregates)
 router.get('/aggregates/', CommunityController.getAllAggregates)
+router.get('/aggregates/:id', CommunityController.getAggregateById)
 module.exports = router

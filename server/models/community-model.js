@@ -3,7 +3,6 @@ const Schema = mongoose.Schema
 
 const CommunitySchema = new Schema(
     {
-        topItems: {type: [String], required: true},
         itemsCount: {type: Map, of: Number, required: true},
         name: {type: String, required: true},
         users: {type: [String], required: true},
@@ -14,7 +13,6 @@ const CommunitySchema = new Schema(
         likedUsers: {type: [String], required: true},
         dislikes: {type: Number, required: true},
         dislikedUsers: {type: [String], required: true},
-        views: {type: Number, required: true},
     },
     { timestamps: true },
 )

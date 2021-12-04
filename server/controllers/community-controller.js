@@ -31,6 +31,15 @@ createAggregates = async (req, res) => {
         })
 }
 
+getAggregateById = async (req, res) => {
+    await Community.findById({ _id: req.params.id }, (err, list) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+        return res.status(200).json({ success: true, aggregate: list })
+    }).catch(err => console.log(err))
+}
+
 updateAggregates =  async (req, res) => {
     const body = req.body
     if (!body) {
@@ -54,6 +63,13 @@ updateAggregates =  async (req, res) => {
         aggregate.topItems = body.topItems
         aggregate.itemsCount = body.itemsCount
         aggregate.users = body.users
+        aggregate.views = body.views
+        aggregate.comments = body.comments
+        aggregate.likes = body.likes
+        aggregate.dislikes = body.dislikes
+        aggregate.likedUsers = body.likedUsers
+        aggregate.dislikedUsers = body.dislikedUsers
+        aggregate.views = body.views
 
         aggregate
             .save()
@@ -107,5 +123,6 @@ module.exports = {
     createAggregates,
     updateAggregates,
     deleteAggregates,
-    getAllAggregates
+    getAllAggregates,
+    getAggregateById
 }
