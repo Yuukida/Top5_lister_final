@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 import { useHistory } from 'react-router-dom'
 import api from '../api'
 
@@ -23,6 +23,11 @@ function AuthContextProvider(props) {
         isGuest: false
     });
     const history = useHistory();
+
+    useEffect(() => {
+        auth.getLoggedIn();
+        history.push("/home/")
+    }, [])
 
     const authReducer = (action) => {
         const { type, payload } = action;
