@@ -81,6 +81,9 @@ function ExpandedListCard(props) {
                         
             index++;
             itemList.push(item)
+            if(index===5){
+                break;
+            }
         }
         comments =
         <InputBase

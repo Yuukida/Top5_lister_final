@@ -244,7 +244,7 @@ function ListCard(props) {
         >
                 
             
-            <Typography sx={{flexGrow:1, fontWeight:"bold", fontSize: 20,}}>{attributes.name} <br/>{"By:\xa0\xa0\xa0" + store.pageType === "COMMUNITY" ? "" : attributes.ownerId}</Typography>
+            <Typography sx={{flexGrow:1, fontWeight:"bold", fontSize: 20,}}>{attributes.name} <br/>{store.pageType === "COMMUNITY" ? "" : "By: \xa0\xa0\xa0"+attributes.ownerId}</Typography>
             
             {likeDislike}
             {store.pageType === "HOME" ? <IconButton

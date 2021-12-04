@@ -96,7 +96,7 @@ getAllAggregates = async (req, res) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        if (!aggregates.length) {
+        if (!aggregates) {
             return res
                 .status(404)
                 .json({ success: false, error: `Aggregates not found` })

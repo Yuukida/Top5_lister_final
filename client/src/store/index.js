@@ -230,6 +230,7 @@ function GlobalStoreContextProvider(props) {
                         if (response.data.success) {
                             let pairsArray = response.data.top5Lists;
                             let ownedLists = pairsArray.filter(list => list.ownerId === auth.user.userId);
+                            console.log(ownedLists)
                             storeReducer({
                                 type: GlobalStoreActionType.SAVE_PUBLISH_LIST,
                                 payload: {
@@ -400,7 +401,7 @@ function GlobalStoreContextProvider(props) {
             storeReducer({
                 type: GlobalStoreActionType.CHANGE_PAGE,
                 payload: {
-                    currentLists: store.currentList,
+                    currentLists: store.currentLists,
                     pageType: GlobalStorePageType.COMMUNITY,
                     communityLists: aggregates
                 }
@@ -586,8 +587,48 @@ function GlobalStoreContextProvider(props) {
     store.deleteList = async function (listToDelete) {
         let response = await api.deleteTop5ListById(listToDelete._id);
         if (response.data.success) {
-            store.loadHomeLists();
-            history.push("/home/");
+            let top5list = response.data.data;
+            response = await api.getAllAggregates();
+            if(response.data.success){
+                let aggregates = response.data.aggregates
+                const index = aggregates.findIndex(list => list.name.toLowerCase() === top5list.name.toLowerCase())
+                let aggregate = aggregates[index]
+                if(aggregate){
+                    if(aggregate.users.length === 1){  //last aggregate
+                        response = await api.deleteAggregates(aggregate._id)
+                        if(response.data.success){
+                            store.loadHomeLists();
+                            history.push("/home/")
+                        }
+                    }else{
+                        let items = top5list.items;
+                        let itemsCount = aggregates[index].itemsCount
+                        for(let index in items){
+                            let item = items[index]
+                            if(itemsCount[item]-1 === 0){
+                                delete itemsCount[item]
+                            }else{
+                                itemsCount[item]--
+                            }
+                        }
+                        let itemsCountMap = new Map([...Object.entries(itemsCount)].sort((a, b) => b[1] - a[1]));
+                        itemsCount = Object.fromEntries(itemsCountMap);
+                        aggregates[index].itemsCount = itemsCount;
+                        aggregates[index].users.pop(top5list.ownerId);
+                        let response = await api.updateAggregates(aggregates[index]._id, aggregates[index])
+                        if(response.data.success){
+                            response = await api.getAllAggregates();
+                            if(response.data.success){
+                                store.loadHomeLists();
+                                history.push("/home/")
+                            }
+                        }
+                    }
+                }else{
+                    store.loadHomeLists();
+                    history.push("/home/")
+                }
+            }
         }
     }
 
@@ -1039,8 +1080,8 @@ function GlobalStoreContextProvider(props) {
         history.push("/home/")
     }
     store.goToCommunity = async function(){
-        history.push("/community/")
         await store.loadCommunityLists();
+        history.push("/community/")
     }
     store.goToUser = function() {
         storeReducer({

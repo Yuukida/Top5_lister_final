@@ -21,6 +21,8 @@ function HomeScreen() {
             }else{
                 store.welcomePage();
             }
+        }else{
+            store.loadHomeLists();
         }
     }, []);
 
