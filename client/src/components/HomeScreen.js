@@ -13,17 +13,20 @@ function HomeScreen() {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
 
-    useEffect(async() =>  {
-        if(!auth.loggedIn){
-            const log = await auth.getLoggedIn();
-            if(log){
-                store.loadHomeLists();
+    useEffect(() =>  {
+        async function log() {
+            if(!auth.loggedIn){
+                const log = await auth.getLoggedIn();
+                if(log){
+                    store.loadHomeLists();
+                }else{
+                    store.welcomePage();
+                }
             }else{
-                store.welcomePage();
+                store.loadHomeLists();
             }
-        }else{
-            store.loadHomeLists();
         }
+        log()
     }, []);
 
     function handleCreateNewList() {

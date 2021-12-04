@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { stepperClasses, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { GlobalStoreContext } from '../store/index.js'
 import Box from '@mui/material/Box';
 import { Grid } from '@mui/material';
@@ -15,14 +15,17 @@ function WorkspaceScreen() {
     const { auth } = useContext(AuthContext);
     const [items, setItems] = useState(store?.currentList?.items);
     const [name, setName] = useState(store?.currentList?.name)
-    useEffect(async () => {
-        if(!auth.loggedIn && !auth.isGuest){
+    useEffect(() => {
+        async function log() {
             const log = await auth.getLoggedIn()
             if(log){
                 store.goToHome()
             }else{
                 store.welcomePage()
             }
+        }
+        if(!auth.loggedIn && !auth.isGuest){
+            log()
         }
         if((new Set(items)).size !== items.length){
             setSave(true)
