@@ -27,22 +27,24 @@ function WorkspaceScreen() {
         if(!auth.loggedIn && !auth.isGuest){
             log()
         }
-        if((new Set(items)).size !== items.length){
-            setSave(true)
-            setPublish(true)
-        }else{
-            setSave(false)
-            let sameLists = store.currentLists.filter((list) => {
-                return (list.name === name) && list.published
-            }
-            );
-            if(sameLists.length === 0){
-                setPublish(false);
-            }
-            else if(sameLists[0]._id === store.currentList._id){
-                setPublish(false);
+        if(store.currentList){
+            if((new Set(items)).size !== items.length){
+                setSave(true)
+                setPublish(true)
             }else{
-                setPublish(true);
+                setSave(false)
+                let sameLists = store.currentLists.filter((list) => {
+                    return (list.name === name) && list.published
+                }
+                );
+                if(sameLists.length === 0){
+                    setPublish(false);
+                }
+                else if(sameLists[0]._id === store.currentList._id){
+                    setPublish(false);
+                }else{
+                    setPublish(true);
+                }
             }
         }
     }, [name]);
