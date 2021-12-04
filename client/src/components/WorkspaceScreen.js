@@ -24,23 +24,28 @@ function WorkspaceScreen() {
                 store.welcomePage()
             }
         }
-        let sameLists = store.currentLists.filter((list) => {
-            return (list.name === name) && list.published
-        }
-        );
-        if(sameLists.length === 0){
-            setPublish(false);
-            
-        }
-        else if(sameLists[0]._id === store.currentList._id){
-            setPublish(false);
+        if((new Set(items)).size !== items.length){
+            setSave(true)
+            setPublish(true)
         }else{
-            setPublish(true);
+            setSave(false)
+            let sameLists = store.currentLists.filter((list) => {
+                return (list.name === name) && list.published
+            }
+            );
+            if(sameLists.length === 0){
+                setPublish(false);
+            }
+            else if(sameLists[0]._id === store.currentList._id){
+                setPublish(false);
+            }else{
+                setPublish(true);
+            }
         }
-
     }, [name]);
 
     const [publish, setPublish] = useState(!store?.currentList?.published);
+    const [save, setSave] = useState(true)
 
     const handleSaveList = (event, id) => {
         store.saveList(id, name, items);
@@ -53,16 +58,32 @@ function WorkspaceScreen() {
     const handleItemChange = (event, index) => {
         items[index] = event.target.value
         setItems(items)
+        if((new Set(items)).size !== items.length){
+            setSave(true)
+            setPublish(true)
+        }else{
+            setSave(false)
+            let sameLists = store.currentLists.filter((list) => {
+                return (list.name === name) && list.published
+            }
+            );
+            if(sameLists.length === 0){
+                setPublish(false);
+            }
+            else if(sameLists[0]._id === store.currentList._id){
+                setPublish(false);
+            }else{
+                setPublish(true);
+            }
+        }        
     }
 
     const handleListNameChange = (event) => {
         if(event){
             setName(event.target.value)
         }
-        
-        
     }
-    
+
     let editItems = "";
 
     if (store.currentList) {
@@ -170,6 +191,7 @@ function WorkspaceScreen() {
                         height:45,
                         width: "10%",
                      }}
+                     disabled={save}
                      onClick={(event) => handleSaveList(event, store.currentList._id)}
                     >
                         {"SAVE"}
