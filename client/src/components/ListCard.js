@@ -28,7 +28,7 @@ function ListCard(props) {
         event.stopPropagation();
         if(store.pageType === "COMMUNITY"){
             store.handleCommunityViews(id)
-        }else if(store.pageType !== "HOME"){
+        }else{
             store.handleViews(id)
         }
         setExpand(true);

@@ -442,7 +442,7 @@ function GlobalStoreContextProvider(props) {
                 console.log(index)
                 const matchingList = aggregates[index]
                 if(matchingList){ // update
-                    let itemsCount = matchingList.itemsCount
+                    let itemsCount = JSON.parse(matchingList.itemsCount)
                     let items = newlist.items
                     for(let index in items){
                         if(items[index] in itemsCount){
@@ -453,7 +453,7 @@ function GlobalStoreContextProvider(props) {
                     }
                     let itemsCountMap = new Map([...Object.entries(itemsCount)].sort((a, b) => b[1] - a[1]));
                     itemsCount = Object.fromEntries(itemsCountMap);
-                    aggregates[index].itemsCount = itemsCount;
+                    aggregates[index].itemsCount = JSON.stringify(itemsCount);
                     aggregates[index].users.push(newlist.ownerId)
                     aggregates[index].updateDate = new Date();
                     let response = await api.updateAggregates(aggregates[index]._id, aggregates[index])
@@ -464,15 +464,14 @@ function GlobalStoreContextProvider(props) {
                         }
                     } 
                 }else{ // no entries in collection
-                    let itemsCountMap = new Map()
+                    let itemsCount = {}
                     let items = newlist.items
                     for(let index in items){
-                        itemsCountMap.set(items[index], 1)
-                    }
-                    let itemsCount = Object.fromEntries(itemsCountMap);
+                        itemsCount[items[index]] = 1
+                    } 
                     let payload = {
                         name: newlist.name,
-                        itemsCount: itemsCount,
+                        itemsCount: JSON.stringify(itemsCount),
                         users: [newlist.ownerId],
                         likes: 0,
                         likedUsers: [],
@@ -501,7 +500,7 @@ function GlobalStoreContextProvider(props) {
             let itemsCount = Object.fromEntries(itemsCountMap);
             let payload = {
                 name: newlist.name,
-                itemsCount: itemsCount,
+                itemsCount: JSON.stringify(itemsCount),
                 users: [newlist.ownerId],
                 likes: 0,
                 likedUsers: [],
@@ -604,7 +603,7 @@ function GlobalStoreContextProvider(props) {
                         }
                     }else{
                         let items = top5list.items;
-                        let itemsCount = aggregates[index].itemsCount
+                        let itemsCount = JSON.parse(aggregates[index].itemsCount)
                         for(let index in items){
                             let item = items[index]
                             if(itemsCount[item]-1 === 0){
@@ -615,7 +614,7 @@ function GlobalStoreContextProvider(props) {
                         }
                         let itemsCountMap = new Map([...Object.entries(itemsCount)].sort((a, b) => b[1] - a[1]));
                         itemsCount = Object.fromEntries(itemsCountMap);
-                        aggregates[index].itemsCount = itemsCount;
+                        aggregates[index].itemsCount = JSON.stringify(itemsCount);
                         aggregates[index].users.pop(top5list.ownerId);
                         aggregates[index].updateDate = new Date()
                         let response = await api.updateAggregates(aggregates[index]._id, aggregates[index])
