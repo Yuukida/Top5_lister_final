@@ -70,7 +70,7 @@ function ExpandedListCard(props) {
 )
     }
     if(store.pageType === "COMMUNITY") {
-        let itemsCount = attributes.itemsCount
+        let itemsCount = JSON.parse(attributes.itemsCount)
         let index = 0;
         for(let key in itemsCount){
             let item = 
