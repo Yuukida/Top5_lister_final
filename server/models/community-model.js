@@ -13,6 +13,7 @@ const CommunitySchema = new Schema(
         likedUsers: {type: [String], required: true},
         dislikes: {type: Number, required: true},
         dislikedUsers: {type: [String], required: true},
+        updateDate: {type: Date, required: true}
     },
     { timestamps: true },
 )

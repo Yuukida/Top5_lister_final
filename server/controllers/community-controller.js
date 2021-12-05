@@ -70,6 +70,7 @@ updateAggregates =  async (req, res) => {
         aggregate.likedUsers = body.likedUsers
         aggregate.dislikedUsers = body.dislikedUsers
         aggregate.views = body.views
+        aggregate.updateDate = body.updateDate
 
         aggregate
             .save()

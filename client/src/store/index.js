@@ -390,9 +390,9 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             let aggregates = response.data.aggregates;
             aggregates.sort((first, second) => {
-                if(first.updatedAt > second.updatedAt){
+                if(first.updateDate > second.updateDate){
                     return -1;
-                }else if(first.updatedAt < second.updatedAt){
+                }else if(first.updateDate < second.updateDate){
                     return 1
                 }else{
                     return 0
@@ -456,6 +456,7 @@ function GlobalStoreContextProvider(props) {
                     itemsCount = Object.fromEntries(itemsCountMap);
                     aggregates[index].itemsCount = itemsCount;
                     aggregates[index].users.push(newlist.ownerId)
+                    aggregates[index].updateDate = new Date();
                     let response = await api.updateAggregates(aggregates[index]._id, aggregates[index])
                     if(response.data.success){
                         response = await api.getAllAggregates();
@@ -480,7 +481,8 @@ function GlobalStoreContextProvider(props) {
                         dislikedUsers: [],
                         views: 0,
                         comments: [],
-                        publishDate: new Date()
+                        publishDate: new Date(),
+                        updateDate: new Date()
                     };
                     let response = await api.createAggregates(payload)
                     if(response.data.success){
@@ -508,7 +510,8 @@ function GlobalStoreContextProvider(props) {
                 dislikedUsers: [],
                 views: 0,
                 comments: [],
-                publishDate: new Date()
+                publishDate: new Date(),
+                updateDate: new Date()
             };
             let response = await api.createAggregates(payload)
             if(response.data.success){
@@ -615,6 +618,7 @@ function GlobalStoreContextProvider(props) {
                         itemsCount = Object.fromEntries(itemsCountMap);
                         aggregates[index].itemsCount = itemsCount;
                         aggregates[index].users.pop(top5list.ownerId);
+                        aggregates[index].updateDate = new Date()
                         let response = await api.updateAggregates(aggregates[index]._id, aggregates[index])
                         if(response.data.success){
                             response = await api.getAllAggregates();
