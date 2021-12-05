@@ -24,7 +24,7 @@ function CommunityScreen() {
     }, []);
 
     let listCard = "";
-    if (store) {
+    if (store && store.pageType === "COMMUNITY") {
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {

@@ -23,7 +23,7 @@ function UsersScreen() {
 
 
     let listCard = "";
-    if (store) {
+    if (store && store.pageType === "USERS") {
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {

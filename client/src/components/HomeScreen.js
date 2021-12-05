@@ -33,7 +33,7 @@ function HomeScreen() {
         store.createNewList();
     }
     let listCard = "";
-    if (store) {
+    if (store && store.pageType === "HOME") {
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {
