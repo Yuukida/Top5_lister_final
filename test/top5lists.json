@@ -1,0 +1,931 @@
+[{
+  "_id": {
+    "$oid": "61ac1d7b8a93f706881e8d95"
+  },
+  "items": [
+    "Legend of Zelda: Ocarina of Time",
+    "Super Smash Bros. Ultimate",
+    "MGS3",
+    "Minecraft",
+    "Legend of Zelda: Skyward Sword"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Games",
+  "ownerId": "gorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:26:14.896Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T02:01:31.554Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:26:14.930Z"
+  },
+  "__v": 2
+},{
+  "_id": {
+    "$oid": "61ac3159af612b42d86d961f"
+  },
+  "items": [
+    "Your Name",
+    "The Dark Knight",
+    "Harry Potter",
+    "Inception",
+    "Interstellar"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Movies",
+  "ownerId": "gorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:26:45.841Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:26:17.018Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:26:45.851Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3182af612b42d86d962f"
+  },
+  "items": [
+    "Japan ",
+    "Hong Kong",
+    "Korea",
+    "China",
+    "Italy"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Countries you'd like to Visit",
+  "ownerId": "gorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:27:22.261Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:26:58.453Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:27:22.269Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac319baf612b42d86d963f"
+  },
+  "items": [
+    "Gyro",
+    "Burgers",
+    "Ice Cream",
+    "Biryani",
+    "Sushi"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Foods",
+  "ownerId": "gorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:27:57.788Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:27:23.551Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:27:57.796Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac31bfaf612b42d86d964f"
+  },
+  "items": [
+    "Java",
+    "C#",
+    "C++",
+    "Javascript",
+    "Python"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Programming Languages",
+  "ownerId": "gorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:28:23.709Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:27:59.411Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:28:23.717Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac31e8af612b42d86d9663"
+  },
+  "items": [
+    "Minecraft  ",
+    "GTA",
+    "COD",
+    "Battlefield",
+    "Rocket League"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Games",
+  "ownerId": "mcgorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:29:58.331Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:28:40.196Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:29:58.340Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3238af612b42d86d9673"
+  },
+  "items": [
+    "The Lion King",
+    "Toy Story",
+    "Fantasia",
+    "The Avengers",
+    "Inception"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Movies",
+  "ownerId": "mcgorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:30:24.598Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:30:00.121Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:30:24.605Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3252af612b42d86d9683"
+  },
+  "items": [
+    "Dumplings",
+    "Beef Noodle Soup",
+    "Scallion Pancakes",
+    "Lamb over Rice",
+    "Fries"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Foods",
+  "ownerId": "mcgorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:30:50.680Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:30:26.378Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:30:50.687Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac326caf612b42d86d9693"
+  },
+  "items": [
+    "Sweden",
+    "Norway",
+    "Netherland",
+    "Iceland",
+    "Switzerland"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Countries you'd like to Visit",
+  "ownerId": "mcgorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:31:10.682Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:30:52.311Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:31:10.691Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3280af612b42d86d96a3"
+  },
+  "items": [
+    "C",
+    "C++",
+    "Python",
+    "Rust",
+    "Go"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Programming Languages",
+  "ownerId": "mcgorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:31:31.678Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:31:12.042Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:31:31.686Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac32a5af612b42d86d96b7"
+  },
+  "items": [
+    "Minecraft",
+    "Among Us",
+    "Kirby",
+    "Cookie Clicker",
+    "Fall Guys "
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Games",
+  "ownerId": "mckilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 1,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:33:57.264Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:31:49.298Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:33:59.210Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3349af612b42d86d96cb"
+  },
+  "items": [
+    "Harry Potter",
+    "Spiderman 3",
+    "Kung Fu Panda",
+    "Karate Kid",
+    "40 Year Old Virgin"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Movies",
+  "ownerId": "mckilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:34:58.062Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:34:33.136Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:34:58.069Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3368af612b42d86d96db"
+  },
+  "items": [
+    "Japan",
+    "Korea",
+    "Italy",
+    "Spain",
+    "Greece"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Countries you'd like to Visit",
+  "ownerId": "mckilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:35:22.170Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:35:04.689Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:35:22.177Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac337baf612b42d86d96eb"
+  },
+  "items": [
+    "Pizza",
+    "Sesame Chicken",
+    "Shrimp Fried Rice",
+    "Avacado",
+    "Banana"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Foods",
+  "ownerId": "mckilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:35:53.691Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:35:23.855Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:35:53.697Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac339aaf612b42d86d96fb"
+  },
+  "items": [
+    "Java",
+    "Python",
+    "C",
+    "C++",
+    "C#"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Programming Languages",
+  "ownerId": "mckilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:36:18.833Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:35:54.891Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:36:18.840Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac33b4af612b42d86d970b"
+  },
+  "items": [
+    "Big Bang",
+    "Jeopardy",
+    "The Flash",
+    "Green Arrow",
+    "Kung Fu Panda: Legends of Awesomeness"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "TV Shows",
+  "ownerId": "mckilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:36:44.548Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:36:20.499Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:36:44.555Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac33d5af612b42d86d971f"
+  },
+  "items": [
+    "Duck",
+    "Pig",
+    "Lamb",
+    "Cow",
+    "Chicken"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Animals to Eat",
+  "ownerId": "gorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:37:12.849Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:36:53.845Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:37:12.856Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac33f3af612b42d86d9733"
+  },
+  "items": [
+    "How to Kill a Mocking Bird ",
+    "The Chosen",
+    "Wuthering Heights",
+    "Harry Potter",
+    "Diary of a Wimpy Kid"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Books",
+  "ownerId": "mcgorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:38:04.481Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:37:23.409Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:38:04.489Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac341eaf612b42d86d9743"
+  },
+  "items": [
+    "a",
+    "s",
+    "c",
+    "d",
+    "?"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Untitled",
+  "ownerId": "mcgorilla",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": false,
+  "publishDate": {
+    "$date": "1970-01-01T00:00:00Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:38:06.406Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:38:11.994Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3442af612b42d86d9755"
+  },
+  "items": [
+    "League of Legends",
+    "Rimworld",
+    "Path of Exile",
+    "Minecraft",
+    "Starcraft 2"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Games",
+  "ownerId": "bunny",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:39:02.683Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:38:42.620Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:39:02.690Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3457af612b42d86d9765"
+  },
+  "items": [
+    "The Lion King",
+    "Toy Story",
+    "Fantasia",
+    "The Avengers",
+    "Inception"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Movies",
+  "ownerId": "bunny",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:39:28.781Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:39:03.993Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:39:28.788Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3472af612b42d86d9775"
+  },
+  "items": [
+    "China",
+    "Germany",
+    "Dominican Republic",
+    "Netherlands",
+    "New Zealand"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Countries you'd like to Visit",
+  "ownerId": "bunny",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:39:50.833Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:39:30.200Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:39:50.840Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3487af612b42d86d9785"
+  },
+  "items": [
+    "Fried Rice",
+    "Sushi",
+    "Dim Sum",
+    "French Toast",
+    "Orange"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Foods",
+  "ownerId": "bunny",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:40:13.322Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:39:51.819Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:40:13.329Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac34a1af612b42d86d9795"
+  },
+  "items": [
+    "The Office",
+    "Criminal Minds",
+    "Black Mirror",
+    "Friends",
+    "Two and a Half Men"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "TV Shows",
+  "ownerId": "bunny",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:40:35.494Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:40:17.506Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:40:35.502Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac34b4af612b42d86d97a5"
+  },
+  "items": [
+    "Wish You Were Here",
+    "The Final Cut",
+    "Comfortably Numb",
+    "Shine On You Crazy Diamond",
+    "Echoes"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Pink Floyd Songs",
+  "ownerId": "bunny",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:41:01.477Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:40:36.618Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:41:01.485Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac350aaf612b42d86d97bd"
+  },
+  "items": [
+    "Halo",
+    "Call Of Duty",
+    "League of Legends",
+    "Minecraft",
+    "Final Fantasy 14"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Games",
+  "ownerId": "debu",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:42:36.410Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:42:02.645Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:42:36.417Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac352daf612b42d86d97cd"
+  },
+  "items": [
+    "The Great Gatsby",
+    "Elf",
+    "Romeo and Juliet",
+    "Roman Holiday",
+    "Home Alone"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Movies",
+  "ownerId": "debu",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:42:57.419Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:42:37.775Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:42:57.427Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac3542af612b42d86d97dd"
+  },
+  "items": [
+    "Arcane",
+    "Squid Game",
+    "House MD",
+    "Brooklyn Nine Nine",
+    "Psych"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "TV Shows",
+  "ownerId": "debu",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:43:22.400Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:42:58.932Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:43:22.407Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac355eaf612b42d86d97ed"
+  },
+  "items": [
+    "Japan",
+    "Iceland",
+    "Norway",
+    "Sweden",
+    "Korea"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Countries you'd like to Visit",
+  "ownerId": "debu",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:43:41.497Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:43:26.589Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:43:41.504Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac357daf612b42d86d97fd"
+  },
+  "items": [
+    "Chicken Wing",
+    "Steak",
+    "Ice Cream",
+    "Pizza",
+    "Crab Leg"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Foods",
+  "ownerId": "debu",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:44:13.470Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:43:57.736Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:44:13.477Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac358eaf612b42d86d980d"
+  },
+  "items": [
+    "Java",
+    "Python",
+    "MIPS",
+    "Javascript",
+    "C"
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "comments": [],
+  "name": "Programming Languages",
+  "ownerId": "debu",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 1,
+  "published": true,
+  "publishDate": {
+    "$date": "2021-12-05T03:44:59.297Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:44:14.882Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:45:23.349Z"
+  },
+  "__v": 1
+}]

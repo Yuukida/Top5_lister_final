@@ -1,0 +1,291 @@
+[{
+  "_id": {
+    "$oid": "61ac3156af612b42d86d9619"
+  },
+  "users": [
+    "gorilla",
+    "mcgorilla",
+    "mckilla",
+    "bunny",
+    "debu"
+  ],
+  "comments": [
+    [
+      "debu",
+      "lol"
+    ]
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "name": "Games",
+  "itemsCount": "{\"Minecraft\":4,\"League of Legends\":2,\"Legend of Zelda: Ocarina of Time\":1,\"Super Smash Bros. Ultimate\":1,\"MGS3\":1,\"Legend of Zelda: Skyward Sword\":1,\"Minecraft  \":1,\"GTA\":1,\"COD\":1,\"Battlefield\":1,\"Rocket League\":1,\"Among Us\":1,\"Kirby\":1,\"Cookie Clicker\":1,\"Fall Guys \":1,\"Rimworld\":1,\"Path of Exile\":1,\"Starcraft 2\":1,\"Halo\":1,\"Call Of Duty\":1,\"Final Fantasy 14\":1}",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 1,
+  "publishDate": {
+    "$date": "2021-12-05T03:26:14.953Z"
+  },
+  "updateDate": {
+    "$date": "2021-12-05T03:42:36.439Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:26:14.960Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:47:07.493Z"
+  },
+  "__v": 5
+},{
+  "_id": {
+    "$oid": "61ac3175af612b42d86d9629"
+  },
+  "users": [
+    "gorilla",
+    "mcgorilla",
+    "mckilla",
+    "bunny",
+    "debu"
+  ],
+  "comments": [],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "name": "Movies",
+  "itemsCount": "{\"Inception\":3,\"Harry Potter\":2,\"The Lion King\":2,\"Toy Story\":2,\"Fantasia\":2,\"The Avengers\":2,\"Your Name\":1,\"The Dark Knight\":1,\"Interstellar\":1,\"Spiderman 3\":1,\"Kung Fu Panda\":1,\"Karate Kid\":1,\"40 Year Old Virgin\":1,\"The Great Gatsby\":1,\"Elf\":1,\"Romeo and Juliet\":1,\"Roman Holiday\":1,\"Home Alone\":1}",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 1,
+  "publishDate": {
+    "$date": "2021-12-05T03:26:45.870Z"
+  },
+  "updateDate": {
+    "$date": "2021-12-05T03:42:57.449Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:26:45.875Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:45:50.933Z"
+  },
+  "__v": 4
+},{
+  "_id": {
+    "$oid": "61ac319aaf612b42d86d9639"
+  },
+  "users": [
+    "gorilla",
+    "mcgorilla",
+    "mckilla",
+    "bunny",
+    "debu"
+  ],
+  "comments": [
+    [
+      "debu",
+      "wow"
+    ]
+  ],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "name": "Countries you'd like to Visit",
+  "itemsCount": "{\"Korea\":3,\"Italy\":2,\"China\":2,\"Sweden\":2,\"Norway\":2,\"Iceland\":2,\"Japan\":2,\"Japan \":1,\"Hong Kong\":1,\"Netherland\":1,\"Switzerland\":1,\"Spain\":1,\"Greece\":1,\"Germany\":1,\"Dominican Republic\":1,\"Netherlands\":1,\"New Zealand\":1}",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 1,
+  "publishDate": {
+    "$date": "2021-12-05T03:27:22.287Z"
+  },
+  "updateDate": {
+    "$date": "2021-12-05T03:43:41.525Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:27:22.291Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:47:29.107Z"
+  },
+  "__v": 5
+},{
+  "_id": {
+    "$oid": "61ac31bdaf612b42d86d9649"
+  },
+  "users": [
+    "gorilla",
+    "mcgorilla",
+    "mckilla",
+    "bunny",
+    "debu"
+  ],
+  "comments": [],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "name": "Foods",
+  "itemsCount": "{\"Sushi\":2,\"Ice Cream\":2,\"Pizza\":2,\"Gyro\":1,\"Burgers\":1,\"Biryani\":1,\"Dumplings\":1,\"Beef Noodle Soup\":1,\"Scallion Pancakes\":1,\"Lamb over Rice\":1,\"Fries\":1,\"Sesame Chicken\":1,\"Shrimp Fried Rice\":1,\"Avacado\":1,\"Banana\":1,\"Fried Rice\":1,\"Dim Sum\":1,\"French Toast\":1,\"Orange\":1,\"Chicken Wing\":1,\"Steak\":1,\"Crab Leg\":1}",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 2,
+  "publishDate": {
+    "$date": "2021-12-05T03:27:57.823Z"
+  },
+  "updateDate": {
+    "$date": "2021-12-05T03:44:13.499Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:27:57.827Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:45:49.206Z"
+  },
+  "__v": 4
+},{
+  "_id": {
+    "$oid": "61ac31d7af612b42d86d9659"
+  },
+  "users": [
+    "gorilla",
+    "mcgorilla",
+    "mckilla",
+    "debu"
+  ],
+  "comments": [
+    [
+      "debu",
+      "pp"
+    ]
+  ],
+  "likedUsers": [
+    "debu"
+  ],
+  "dislikedUsers": [],
+  "name": "Programming Languages",
+  "itemsCount": "{\"Python\":4,\"C++\":3,\"Java\":3,\"C\":3,\"C#\":2,\"Javascript\":2,\"Rust\":1,\"Go\":1,\"MIPS\":1}",
+  "likes": 1,
+  "dislikes": 0,
+  "views": 2,
+  "publishDate": {
+    "$date": "2021-12-05T03:28:23.739Z"
+  },
+  "updateDate": {
+    "$date": "2021-12-05T03:44:59.327Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:28:23.744Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:47:21.661Z"
+  },
+  "__v": 5
+},{
+  "_id": {
+    "$oid": "61ac33ccaf612b42d86d9715"
+  },
+  "users": [
+    "mckilla",
+    "bunny",
+    "debu"
+  ],
+  "comments": [],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "name": "TV Shows",
+  "itemsCount": "{\"Big Bang\":1,\"Jeopardy\":1,\"The Flash\":1,\"Green Arrow\":1,\"Kung Fu Panda: Legends of Awesomeness\":1,\"The Office\":1,\"Criminal Minds\":1,\"Black Mirror\":1,\"Friends\":1,\"Two and a Half Men\":1,\"Arcane\":1,\"Squid Game\":1,\"House MD\":1,\"Brooklyn Nine Nine\":1,\"Psych\":1}",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 1,
+  "publishDate": {
+    "$date": "2021-12-05T03:36:44.574Z"
+  },
+  "updateDate": {
+    "$date": "2021-12-05T03:43:22.429Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:36:44.577Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:47:12.407Z"
+  },
+  "__v": 2
+},{
+  "_id": {
+    "$oid": "61ac33e8af612b42d86d9729"
+  },
+  "users": [
+    "gorilla"
+  ],
+  "comments": [],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "name": "Animals to Eat",
+  "itemsCount": "{\"Duck\":1,\"Pig\":1,\"Lamb\":1,\"Cow\":1,\"Chicken\":1}",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "publishDate": {
+    "$date": "2021-12-05T03:37:12.875Z"
+  },
+  "updateDate": {
+    "$date": "2021-12-05T03:37:12.875Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:37:12.879Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:37:12.879Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61ac341caf612b42d86d973d"
+  },
+  "users": [
+    "mcgorilla"
+  ],
+  "comments": [],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "name": "Books",
+  "itemsCount": "{\"How to Kill a Mocking Bird \":1,\"The Chosen\":1,\"Wuthering Heights\":1,\"Harry Potter\":1,\"Diary of a Wimpy Kid\":1}",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "publishDate": {
+    "$date": "2021-12-05T03:38:04.507Z"
+  },
+  "updateDate": {
+    "$date": "2021-12-05T03:38:04.507Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:38:04.511Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:38:04.511Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61ac34cdaf612b42d86d97af"
+  },
+  "users": [
+    "bunny"
+  ],
+  "comments": [],
+  "likedUsers": [],
+  "dislikedUsers": [],
+  "name": "Pink Floyd Songs",
+  "itemsCount": "{\"Wish You Were Here\":1,\"The Final Cut\":1,\"Comfortably Numb\":1,\"Shine On You Crazy Diamond\":1,\"Echoes\":1}",
+  "likes": 0,
+  "dislikes": 0,
+  "views": 0,
+  "publishDate": {
+    "$date": "2021-12-05T03:41:01.506Z"
+  },
+  "updateDate": {
+    "$date": "2021-12-05T03:41:01.506Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-05T03:41:01.510Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T03:41:01.510Z"
+  },
+  "__v": 0
+}]
