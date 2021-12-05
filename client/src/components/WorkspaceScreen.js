@@ -100,7 +100,7 @@ function WorkspaceScreen() {
                 {
                     
                     store.currentList.items.map((item, index) => (
-                        <Box sx={{width: "100%", display: "flex", flex:1}}>
+                        <Box sx={{width: "100%", display: "flex", flex:1}} key={"item" + index}>
                         <InputBase
                             value={index+1 + ". "}
                             sx={{m:1, backgroundColor: "#d5b240", border:1, borderRadius:2, width: 80,  fontSize: 35, }}
