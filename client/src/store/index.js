@@ -99,7 +99,7 @@ function GlobalStoreContextProvider(props) {
                     pageType: store.pageType,
                     sortType: store.sortType,
                     searched: store.searched,
-                    communityLists: payload.communityLists
+                    communityLists: store.communityLists
                 })
             }
             // PREPARE TO DELETE A LIST
@@ -230,7 +230,6 @@ function GlobalStoreContextProvider(props) {
                         if (response.data.success) {
                             let pairsArray = response.data.top5Lists;
                             let ownedLists = pairsArray.filter(list => list.ownerId === auth.user.userId);
-                            console.log(ownedLists)
                             storeReducer({
                                 type: GlobalStoreActionType.SAVE_PUBLISH_LIST,
                                 payload: {
@@ -1172,7 +1171,7 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             let top5Lists = response.data.top5Lists;
             let published = top5Lists.filter(list => list.published === true)
-            let searchedLists = published.filter(list => list.ownerId === search)
+            let searchedLists = published.filter(list => list.ownerId.toLowerCase() === search.toLowerCase())
             storeReducer({
                 type: GlobalStoreActionType.SEARCH_LISTS,
                 payload:{

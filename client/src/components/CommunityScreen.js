@@ -15,7 +15,7 @@ function CommunityScreen() {
         async function login() {
             const log = await auth.getLoggedIn();
             if(log || auth.isGuest){
-                store.loadCommunityLists();
+                await store.loadCommunityLists();
             }else{
                 store.welcomePage();
             }

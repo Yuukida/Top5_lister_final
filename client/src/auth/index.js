@@ -24,11 +24,6 @@ function AuthContextProvider(props) {
     });
     const history = useHistory();
 
-    useEffect(() => {
-        auth.getLoggedIn();
-        history.push("/home/")
-    }, [])
-
     const authReducer = (action) => {
         const { type, payload } = action;
         switch (type) {
@@ -160,11 +155,12 @@ function AuthContextProvider(props) {
         }
     }
 
-    auth.signInGuest = function () {
+    auth.signInGuest = async function (store) {
         authReducer({
             type: AuthActionType.SET_GUEST,
             payload: {}
         })
+        await store.loadCommunityLists()
         history.push("/community/")
     }
 

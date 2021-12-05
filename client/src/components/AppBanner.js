@@ -32,7 +32,7 @@ export default function AppBanner() {
 
     const handleGuest = () => {
         handleMenuClose();
-        auth.signInGuest();
+        auth.signInGuest(store);
     }
     let link = "/"
     if(auth.loggedIn){

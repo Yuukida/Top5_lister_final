@@ -3,14 +3,26 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import AuthContext from '../auth';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { GlobalStoreContext } from '../store';
 
 
 export default function SplashScreen() {
     const { auth } = useContext(AuthContext);
+    const { store } = useContext(GlobalStoreContext);
+
+    useEffect(() => {
+        async function log() {
+            const log = await auth.getLoggedIn();
+            if(log){
+                await store.goToHome()
+            }
+        }
+        log()
+    }, [])
 
     const handleGuest = () => {
-        auth.signInGuest()
+        auth.signInGuest(store)
     }
 
     return (

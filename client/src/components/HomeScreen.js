@@ -18,7 +18,7 @@ function HomeScreen() {
             if(!auth.loggedIn){
                 const log = await auth.getLoggedIn();
                 if(log){
-                    store.loadHomeLists();
+                    await store.loadHomeLists();
                 }else{
                     store.welcomePage();
                 }
@@ -55,7 +55,6 @@ function HomeScreen() {
                 size="large"
                 color="inherit"
                 onClick={handleCreateNewList}
-                disabled={store.isListNameEditActive}
                 style={{ backgroundColor: 'transparent' }}
             >
                 <AddIcon fontSize="large" />

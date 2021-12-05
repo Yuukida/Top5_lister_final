@@ -19,7 +19,7 @@ function WorkspaceScreen() {
         async function log() {
             const log = await auth.getLoggedIn()
             if(log){
-                store.goToHome()
+                await store.goToHome()
             }else{
                 store.welcomePage()
             }
