@@ -66,7 +66,7 @@ function ExpandedListCard(props) {
                     />
 
         itemList = attributes.items.map( (item, index) => 
-        <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 25, m:1,}}>{index+1+". " + item}</Typography>
+        <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 33, m:1,}}>{index+1+". " + item}</Typography>
 )
     }
     if(store.pageType === "COMMUNITY") {
@@ -75,7 +75,7 @@ function ExpandedListCard(props) {
         for(let key in itemsCount){
             let item = 
                     <>
-                    <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 20, ml:1,}}>{index+1+". " + key} </Typography>
+                    <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 23, ml:1,}}>{index+1+". " + key} </Typography>
                     <Typography sx={{ color: "#c7a53a", fontSize: 15, ml:1}}>{"(" + itemsCount[key] + " Votes)"}</Typography>
                     </>
                         
@@ -102,8 +102,8 @@ function ExpandedListCard(props) {
                 {itemList}
             </Box>
 
-            <Box sx={{width: "48%", m:1, display:"flex", flexDirection: "column"}}>
-                <Box style={{maxHeight: 250, overflowY: 'auto', flex:1}} >
+            <Box sx={{width: "48%", m:1, display:"flex", flexDirection: "column", height: 300}}>
+                <Box style={{ overflowY: 'auto', flex:1}} >
                     <List >
                         {commentList}
                     </List>
