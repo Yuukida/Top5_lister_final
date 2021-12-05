@@ -102,7 +102,7 @@ function ListCard(props) {
     let likeDislike = ""
     
     if(store.pageType === "COMMUNITY"){
-        let date = new Date(attributes.publishDate)
+        let date = new Date(attributes.updateDate)
         const month = date.toLocaleString('default', { month: 'short' });
         let day = date.getDate();
         let year = date.getFullYear();
@@ -111,7 +111,7 @@ function ListCard(props) {
         editOrPublish = 
             <>
             <Typography sx={{fontWeight: "bold"}}>
-                {"Published:\xa0\xa0\xa0"}
+                {"Updated:\xa0\xa0\xa0"}
             </Typography>
             <Typography sx={{flex:0.94, color: "green", fontWeight: "bold"}}>
                 {date}
