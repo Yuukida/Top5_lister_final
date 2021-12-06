@@ -1104,9 +1104,9 @@ function GlobalStoreContextProvider(props) {
                 let aggregates = response.data.aggregates;
                 let searchedLists = aggregates.filter(list => list.name.toLowerCase().includes(search.toLowerCase()))
                 searchedLists.sort((first, second) => {
-                    if(first.creationDate > second.creationDate){
+                    if(first.updateDate > second.updateDate){
                         return -1;
-                    }else if(first.creationDate < second.creationDate){
+                    }else if(first.updateDate < second.updateDate){
                         return 1
                     }else{
                         return 0
