@@ -28,10 +28,15 @@ function WorkspaceScreen() {
             log()
         }
         if(store.currentList){
+            let emptyItem = items.filter(item => item === "")
             if((new Set(items)).size !== items.length){
                 setSave(true)
                 setPublish(true)
-            }else{
+            }else if(name === "" || emptyItem.length > 0){
+                setSave(true)
+                setPublish(true)
+            }
+            else{
                 setSave(false)
                 let sameLists = store.currentLists.filter((list) => {
                     return (list.name.toLowerCase() === name.toLowerCase()) && list.published
@@ -63,10 +68,15 @@ function WorkspaceScreen() {
     const handleItemChange = (event, index) => {
         items[index] = event.target.value
         setItems(items)
+        let emptyItem = items.filter(item => item === "")
         if((new Set(items)).size !== items.length){
             setSave(true)
             setPublish(true)
-        }else{
+        }else if(name === "" || emptyItem.length > 0){
+            setSave(true)
+            setPublish(true)
+        }
+        else{
             setSave(false)
             let sameLists = store.currentLists.filter((list) => {
                 return (list.name.toLowerCase() === name.toLowerCase()) && list.published
