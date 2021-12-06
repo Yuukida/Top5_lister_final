@@ -14,8 +14,10 @@ function UsersScreen() {
     useEffect(() =>  {
         async function login() {
             const log = await auth.getLoggedIn();
-            if(!log && !auth.isGuest){
-                store.welcomePage();
+            if(log || auth.isGuest){
+                store.goToUser();
+            }else{
+                store.welcomePage()
             }
         }
         login()
