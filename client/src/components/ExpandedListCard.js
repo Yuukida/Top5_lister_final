@@ -56,19 +56,6 @@ function ExpandedListCard(props) {
     )
 
     let comments = "";
-    if(attributes.published){
-        comments = 
-        <InputBase
-                        sx={{backgroundColor: "white", height:40, width:"95%", borderRadius: 2}}
-                        placeholder="Comment"
-                        onChange={handleCommentChange}
-                        onKeyPress={(event) => handleCommentKeyPress(event, attributes._id)}
-                    />
-
-        itemList = attributes.items.map( (item, index) => 
-        <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 33, m:1,}}>{index+1+". " + item}</Typography>
-)
-    }
     if(store.pageType === "COMMUNITY") {
         let itemsCount = JSON.parse(attributes.itemsCount)
         let index = 0;
@@ -92,6 +79,20 @@ function ExpandedListCard(props) {
                         onChange={handleCommentChange}
                         onKeyPress={(event) => handleCommunityComment(event, attributes._id)}
                     />
+    }else{
+        if(attributes.published){
+            comments = 
+        <InputBase
+                        sx={{backgroundColor: "white", height:40, width:"95%", borderRadius: 2}}
+                        placeholder="Comment"
+                        onChange={handleCommentChange}
+                        onKeyPress={(event) => handleCommentKeyPress(event, attributes._id)}
+                    />
+        }
+
+        itemList = attributes.items.map( (item, index) => 
+        <Typography sx={{fontWeight: "bold", color: "#c7a53a", fontSize: 33, m:1,}}>{index+1+". " + item}</Typography>
+        )
     }
     if(auth.isGuest){
         comments = ""
