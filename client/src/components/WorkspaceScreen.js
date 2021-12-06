@@ -34,7 +34,7 @@ function WorkspaceScreen() {
             }else{
                 setSave(false)
                 let sameLists = store.currentLists.filter((list) => {
-                    return (list.name === name) && list.published
+                    return (list.name.toLowerCase() === name.toLowerCase()) && list.published
                 }
                 );
                 if(sameLists.length === 0){
@@ -69,7 +69,7 @@ function WorkspaceScreen() {
         }else{
             setSave(false)
             let sameLists = store.currentLists.filter((list) => {
-                return (list.name === name) && list.published
+                return (list.name.toLowerCase() === name.toLowerCase()) && list.published
             }
             );
             if(sameLists.length === 0){
