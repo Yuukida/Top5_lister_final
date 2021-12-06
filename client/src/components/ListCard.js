@@ -224,7 +224,50 @@ function ListCard(props) {
         }
     }else if(auth.isGuest){
         bgcolor = "#d4d4f5"
-        likeDislike = ""
+        likeDislike = 
+        <>
+            <IconButton
+            color="inherit"
+            style={{
+                position:"relative",
+                right: 40,
+                bottom:5,
+                opacity: 1,
+                '&.Mui-disabled': {
+                    
+                    opacity: 1,
+                }
+            }}
+            disabled={true}
+            >
+                {attributes.likedUsers.includes(auth.user?.userId) ? <ThumbUpAltIcon fontSize="large"></ThumbUpAltIcon> :<ThumbUpOutlinedIcon fontSize="large"></ThumbUpOutlinedIcon>}
+            </IconButton>
+            <Typography 
+            sx={{fontWeight: "bold", fontSize: 15}} 
+            style={{
+                position:"relative",
+                right: 40,
+                bottom:5
+            }}>{attributes.likes}</Typography>
+            <IconButton
+            color="inherit"
+            style={{
+                position:"relative",
+                right: 30,
+                bottom:5,
+                opacity: 1
+            }}
+            disabled={true}>
+                {attributes.dislikedUsers.includes(auth.user?.userId) ? <ThumbDownAltIcon fontSize="large"></ThumbDownAltIcon> : <ThumbDownOutlinedIcon fontSize="large"></ThumbDownOutlinedIcon>}
+            </IconButton>
+            <Typography 
+            sx={{fontWeight: "bold", fontSize: 15}}
+            style={{
+                position:"relative",
+                right: 30,
+                bottom:5
+            }}>{attributes.dislikes}</Typography>
+        </>
     }
     let views = 'Views:\xa0\xa0\xa0' + attributes.views;
     let cardElement =
